@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "supabase-py-async"
+version = "0.1.0"
+description = "supabase-py with async synax"
+authors = ["Atticuszz <1831768457@qq.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.13"
+aiohttp = "^3.8.6"
+deprecation = "^2.1.0"
+gotrue = "^1.2.0"
+postgrest = "^0.13.0"
+storage3 = "^0.6.1"
+supafunc = "0.2.3"
+realtime = "^1.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
