@@ -50,14 +50,11 @@ import os
 import asyncio
 from supabase_py_async import create_client, AsyncClient
 
+url: str = os.environ.get("SUPABASE_URL")
 
-def initialize():
-  url: str = os.environ.get("SUPABASE_URL")
-  key: str = os.environ.get("SUPABASE_KEY")
-  supabase: AsyncClient = create_client(url, key)
+key: str = os.environ.get("SUPABASE_KEY")
 
-
-initialize()
+supabase: AsyncClient = create_client(url, key)
 ```
 
 ### Async Data Operations
