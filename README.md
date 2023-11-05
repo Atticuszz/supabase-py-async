@@ -54,7 +54,7 @@ from supabase_py_async import create_async_client, AsyncClient
 async def initialize():
   url: str = os.environ.get("SUPABASE_URL")
   key: str = os.environ.get("SUPABASE_KEY")
-  supabase: AsyncClient = await create_async_client(url, key)
+  supabase: AsyncClient = create_async_client(url, key)
 
 
 asyncio.run(initialize())
