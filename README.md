@@ -117,12 +117,12 @@ This project is very close to my heart ❤️, cause my personal plan app is bas
 
 If you're passionate about FastAPI, async programming in Python, or just want to lend a hand with a growing project, this is your invitation to join in. Let's collaborate to create something amazing that we're all proud of. 🤝
 
-## How to Contribute
+### How to Contribute
 - **Fork the repository:** Start by forking the project to your GitHub account.
 - **Pick an issue:** Look for open issues that interest you or suggest new ones.
 - **Open a pull request:** After making your changes, open a pull request with a clear description of your improvements
 
-## Stay Connected
+### Stay Connected
 - **Join our community chat:** We have a Discord channel (https://discord.com/invite/QPysZkKT) where we discuss the project and collaborate.
 - **Stay updated:** Watch this repository to stay informed about new issues and updates.
 
