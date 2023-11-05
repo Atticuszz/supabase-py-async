@@ -19,7 +19,12 @@ of [supabase-js](https://github.com/supabase/supabase-js/blob/master/README.md).
 
 ## Status
 
-We are currently in Public Alpha. Updates will be released as the library matures.
+| Status | Stability    | Goal                                                                                                              |
+|--------|--------------|-------------------------------------------------------------------------------------------------------------------|
+| 🚧     | Alpha        | We are testing Supabase with a closed set of customers                                                            |
+| 🚧     | Public Alpha | Anyone can sign up over at [app.supabase.io](https://app.supabase.com). But go easy on us, there are a few kinks. |
+| ❌      | Public Beta  | Stable enough for most non-enterprise use-cases                                                                   |
+| ❌      | Public       | Production-ready                                                                                                  |
 
 ## Installation
 
@@ -41,13 +46,21 @@ For local development, clone this repo and install in Development mode with `pip
 
 ## Async Usage
 
+It's usually best practice to set your api key environment variables in some way that version control doesn't track
+them, e.g don't put them in your python modules! Set the key and url for the supabase instance in the shell, or better
+yet, use a dotenv file. Heres how to set the variables in the shell.
+
+```bash
+export SUPABASE_URL="my-url-to-my-awesome-supabase-instance"
+export SUPABASE_KEY="my-supa-dupa-secret-supabase-api-key"
+```
+
 This client is designed to be used asynchronously. Below are some examples on how to use it.
 
 ### Initialize Supabase Client
 
 ```python
 import os
-import asyncio
 from supabase_py_async import create_client, AsyncClient
 
 url: str = os.environ.get("SUPABASE_URL")
