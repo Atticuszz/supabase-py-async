@@ -1,3 +1,7 @@
+from postgrest import APIError as PostgrestAPIError
+from postgrest import APIResponse as PostgrestAPIResponse
+from storage3.utils import StorageException
+
 from .__version__ import __version__
 from .client_async import AsyncClient, create_client
 from .lib.auth_client import SupabaseAuthClient

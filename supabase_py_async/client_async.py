@@ -12,7 +12,7 @@ from postgrest._async.request_builder import AsyncRPCFilterRequestBuilder
 # from gotrue.types import AsyncSupabaseAuthClient
 from postgrest.constants import DEFAULT_POSTGREST_CLIENT_TIMEOUT
 from storage3.constants import DEFAULT_TIMEOUT as DEFAULT_STORAGE_CLIENT_TIMEOUT
-from supafunc import FunctionsClient
+from supafunc import AsyncFunctionsClient
 
 from .lib.auth_client import SupabaseAuthClient
 from .lib.client_options import ClientOptions
@@ -91,8 +91,8 @@ class AsyncClient:
         self.auth.on_auth_state_change(self._listen_to_auth_events)
 
     @deprecated("1.1.1", "1.3.0", details="Use `.functions` instead")
-    def functions(self) -> FunctionsClient:
-        return FunctionsClient(self.functions_url, self._get_auth_headers())
+    def functions(self) -> AsyncFunctionsClient:
+        return AsyncFunctionsClient(self.functions_url, self._get_auth_headers())
 
     def table(self, table_name: str) -> AsyncRequestBuilder:
         """Perform a table operation.
@@ -110,7 +110,7 @@ class AsyncClient:
         """
         return self.postgrest.from_(table_name)
 
-    async def rpc(self, fn: str, params: Dict[Any, Any]) -> AsyncRPCFilterRequestBuilder[Any]:
+    def rpc(self, fn: str, params: Dict[Any, Any]) -> AsyncRPCFilterRequestBuilder[Any]:
         """Performs a stored procedure call.
 
         Parameters
@@ -126,7 +126,7 @@ class AsyncClient:
             Returns a filter builder. This lets you apply filters on the response
             of an RPC.
         """
-        return await self.postgrest.rpc(fn, params)
+        return self.postgrest.rpc(fn, params)
 
     @property
     def postgrest(self):
@@ -157,7 +157,7 @@ class AsyncClient:
         if self._functions is None:
             headers = self._get_auth_headers()
             headers.update(self._get_token_header())
-            self._functions = FunctionsClient(self.functions_url, headers)
+            self._functions = AsyncFunctionsClient(self.functions_url, headers)
         return self._functions
 
     #     async def remove_subscription_helper(resolve):
@@ -201,7 +201,8 @@ class AsyncClient:
             headers: Dict[str, str],
             storage_client_timeout: int = DEFAULT_STORAGE_CLIENT_TIMEOUT,
     ) -> SupabaseStorageClient:
-        return SupabaseStorageClient(storage_url, headers, storage_client_timeout)
+        return SupabaseStorageClient(
+            storage_url, headers, storage_client_timeout)
 
     @staticmethod
     def _init_supabase_auth_client(
@@ -240,7 +241,7 @@ class AsyncClient:
     def _get_token_header(self):
         try:
             access_token = self.auth.get_session().access_token
-        except:
+        except BaseException:
             access_token = self.supabase_key
 
         return {
@@ -276,14 +277,17 @@ def create_client(
     --------
     Instantiating the client.
     >>> import os
-    >>> from supabase import create_client, Client
+    >>> from supabase_py_async import create_client, AsyncClient
     >>>
     >>> url: str = os.environ.get("SUPABASE_TEST_URL")
     >>> key: str = os.environ.get("SUPABASE_TEST_KEY")
-    >>> supabase: Client = create_client(url, key)
+    >>> supabase: AsyncClient =  create_client(url, key)
 
     Returns
     -------
     Client
     """
-    return AsyncClient(supabase_url=supabase_url, supabase_key=supabase_key, options=options)
+    return AsyncClient(
+        supabase_url=supabase_url,
+        supabase_key=supabase_key,
+        options=options)

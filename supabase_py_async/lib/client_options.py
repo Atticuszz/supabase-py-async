@@ -3,7 +3,7 @@ from typing import Any, Dict, Optional, Union
 
 # from httpx import Timeout
 from aiohttp import ClientTimeout as Timeout
-from gotrue import AsyncMemoryStorage, AsyncSupportedStorage
+from gotrue import AuthFlowType, AsyncMemoryStorage, AsyncSupportedStorage
 from postgrest.constants import DEFAULT_POSTGREST_CLIENT_TIMEOUT
 from storage3.constants import DEFAULT_TIMEOUT as DEFAULT_STORAGE_CLIENT_TIMEOUT
 
@@ -40,9 +40,11 @@ class ClientOptions:
     ] = DEFAULT_POSTGREST_CLIENT_TIMEOUT
     """Timeout passed to the SyncPostgrestClient instance."""
 
-    storage_client_timeout: Union[int, float,
-    Timeout] = DEFAULT_STORAGE_CLIENT_TIMEOUT
+    storage_client_timeout: Union[int, float, Timeout] = DEFAULT_STORAGE_CLIENT_TIMEOUT
     """Timeout passed to the SyncStorageClient instance"""
+
+    flow_type: AuthFlowType = "implicit"
+    """flow type to use for authentication"""
 
     def replace(
             self,
@@ -58,6 +60,7 @@ class ClientOptions:
             storage_client_timeout: Union[
                 int, float, Timeout
             ] = DEFAULT_STORAGE_CLIENT_TIMEOUT,
+            flow_type: Optional[AuthFlowType] = None,
     ) -> "ClientOptions":
         """Create a new SupabaseClientOptions with changes"""
         client_options = ClientOptions()
@@ -75,4 +78,5 @@ class ClientOptions:
         client_options.storage_client_timeout = (
                 storage_client_timeout or self.storage_client_timeout
         )
+        client_options.flow_type = flow_type or self.flow_type
         return client_options

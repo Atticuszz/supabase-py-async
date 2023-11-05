@@ -1,11 +1,12 @@
 from typing import Dict, Optional
 
-# TODO - export this from GoTrue-py in next release
+
 # from httpx import AsyncClient as BaseClient
 from aiohttp import ClientSession as BaseClient
-from gotrue import AsyncGoTrueClient, AsyncMemoryStorage, AsyncSupportedStorage
+from gotrue import AuthFlowType, AsyncGoTrueClient, AsyncMemoryStorage, AsyncSupportedStorage
 
 
+# TODO -ClientSession is not a good choice for AsyncClient 继承
 class AsyncClient(BaseClient):
     def aclose(self) -> None:
         self.close()
@@ -24,6 +25,7 @@ class SupabaseAuthClient(AsyncGoTrueClient):
             persist_session: bool = True,
             storage: AsyncSupportedStorage = AsyncMemoryStorage(),
             http_client: Optional[AsyncClient] = None,
+            flow_type: AuthFlowType = "implicit"
     ):
         """Instantiate SupabaseAuthClient instance."""
         if headers is None:
@@ -38,4 +40,5 @@ class SupabaseAuthClient(AsyncGoTrueClient):
             persist_session=persist_session,
             storage=storage,
             http_client=http_client,
+            flow_type=flow_type,
         )
