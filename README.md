@@ -11,7 +11,6 @@
 [![Pull Requests](https://img.shields.io/github/issues-pr/Atticuszz/supabase-py-async)](https://github.com/Atticuszz/supabase-py-async/pulls)
 [![Contributors](https://img.shields.io/github/contributors/Atticuszz/supabase-py-async)](https://github.com/Atticuszz/supabase-py-async/graphs/contributors)
 [![Code Size](https://img.shields.io/github/languages/code-size/Atticuszz/supabase-py-async)](https://github.com/Atticuszz/supabase-py-async)
-[![License](https://img.shields.io/github/license/Atticuszz/supabase-py-async)](https://github.com/Atticuszz/supabase-py-async/blob/main/LICENSE)
 
 Supabase client for Python with Async support. This project is an asynchronous variant
 of [supabase-py](https://github.com/supabase-community/supabase-py) and mirrors the design
