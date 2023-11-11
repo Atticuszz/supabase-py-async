@@ -59,8 +59,8 @@ class AsyncClient:
 
         # Check if the key is a valid JWT
         if not re.match(
-                r"^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$", supabase_key
-        ):
+                r"^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$",
+                supabase_key):
             raise SupabaseException("Invalid API key")
 
         self.supabase_url = supabase_url
@@ -88,38 +88,32 @@ class AsyncClient:
         self._postgrest = None
         self._storage = None
         self._functions = None
+        # removed in 2.0.4
         # self.auth.on_auth_state_change(self._listen_to_auth_events)
 
     #     add to single async function to start up listeners
 
-    @deprecated("1.1.1", "1.3.0", details="Use `.functions` instead")
-    def functions(self) -> AsyncFunctionsClient:
-        return AsyncFunctionsClient(self.functions_url, self._get_auth_headers())
+    # @deprecated("1.1.1", "1.3.0", details="Use `.functions` instead")
+    # def functions(self) -> AsyncFunctionsClient:
+    #     return AsyncFunctionsClient(
+    #         self.functions_url,
+    #         self._get_auth_headers())
 
-    # new in 2.0.4
-    async def on_auth_state_change(self):
-        """
-        Add a listener to auth state changes.
-        """
-        await self.auth.on_auth_state_change(self._listen_to_auth_events)
-
-    def table(self, table_name: str) -> AsyncRequestBuilder:
+    def table(self, table_name: str, auth_token: str |
+                                                 None = None) -> AsyncRequestBuilder:
         """Perform a table operation.
 
         Note that the supabase client uses the `from` method, but in Python,
         this is a reserved keyword, so we have elected to use the name `table`.
         Alternatively you can use the `.from_()` method.
         """
-        return self.from_(table_name)
 
-    def from_(self, table_name: str) -> AsyncRequestBuilder:
-        """Perform a table operation.
+        return self.postgrest(auth_token).from_(table_name)
 
-        See the `table` method.
-        """
-        return self.postgrest.from_(table_name)
-
-    def rpc(self, fn: str, params: Dict[Any, Any]) -> AsyncRPCFilterRequestBuilder[Any]:
+    def rpc(self,
+            fn: str,
+            params: Dict[Any, Any],
+            auth_token: str | None = None) -> AsyncRPCFilterRequestBuilder[Any]:
         """Performs a stored procedure call.
 
         Parameters
@@ -135,12 +129,11 @@ class AsyncClient:
             Returns a filter builder. This lets you apply filters on the response
             of an RPC.
         """
-        return self.postgrest.rpc(fn, params)
+        return self.postgrest(auth_token).rpc(fn, params)
 
-    @property
-    def postgrest(self):
+    def postgrest(self, auth_token: str | None = None) -> AsyncPostgrestClient:
         if self._postgrest is None:
-            self.options.headers.update(self._get_token_header())
+            self.options.headers.update(self._get_token_header(auth_token))
             self._postgrest = self._init_postgrest_client(
                 rest_url=self.rest_url,
                 headers=self.options.headers,
@@ -149,10 +142,9 @@ class AsyncClient:
             )
         return self._postgrest
 
-    @property
-    def storage(self):
+    def storage(self, auth_token: str | None = None):
         if self._storage is None:
-            headers = self._get_auth_headers()
+            headers = self._get_token_header(auth_token)
             headers.update(self._get_token_header())
             self._storage = self._init_storage_client(
                 storage_url=self.storage_url,
@@ -161,10 +153,9 @@ class AsyncClient:
             )
         return self._storage
 
-    @property
-    def functions(self):
+    def functions(self, auth_token: str | None = None):
         if self._functions is None:
-            headers = self._get_auth_headers()
+            headers = self._get_token_header(auth_token)
             headers.update(self._get_token_header())
             self._functions = AsyncFunctionsClient(self.functions_url, headers)
         return self._functions
@@ -247,11 +238,11 @@ class AsyncClient:
             "Authorization": f"Bearer {self.supabase_key}",
         }
 
-    def _get_token_header(self):
-        try:
-            access_token = self.auth.get_session()
-        except BaseException:
-            access_token = self.supabase_key
+    def _get_token_header(self, access_token: str |
+                                              None = None) -> Dict[str, str]:
+        """Helper method to get and verify token header."""
+        access_token = access_token if access_token else self.supabase_key
+        # TODO:add function to Verify token on expiration and refresh
         return {
             "Authorization": f"Bearer {access_token}",
         }

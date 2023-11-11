@@ -6,7 +6,7 @@ from aiohttp import ClientSession as BaseClient
 from gotrue import AuthFlowType, AsyncGoTrueClient, AsyncMemoryStorage, AsyncSupportedStorage
 
 
-# TODO -ClientSession is not a good choice for AsyncClient 继承
+# TODO -ClientSession is not a good choice for AsyncClient inheritance
 class AsyncClient(BaseClient):
     def aclose(self) -> None:
         self.close()
