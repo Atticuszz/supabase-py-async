@@ -15,5 +15,6 @@ async def test():
     key = os.getenv("SUPABASE_TEST_KEY")
     # 创建客户端
     client = create_client(url, key)
+    await client.on_auth_state_change()
     response = await client.table("task_done_list").select("*").execute()
     print(response.data)
