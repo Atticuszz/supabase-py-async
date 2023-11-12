@@ -127,8 +127,6 @@ async def async_auth():
   random_email: str = "email@example.com"
   random_password: str = "supersecurepassword"
   auth_response: AuthResponse = await supabase.auth.sign_up(email=random_email, password=random_password)
-
-
 asyncio.run(async_auth())
 ```
 
