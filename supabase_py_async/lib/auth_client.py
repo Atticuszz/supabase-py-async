@@ -1,9 +1,10 @@
 from typing import Dict, Optional
 
-
 # from httpx import AsyncClient as BaseClient
 from aiohttp import ClientSession as BaseClient
 from gotrue import AuthFlowType, AsyncGoTrueClient, AsyncMemoryStorage, AsyncSupportedStorage
+
+from .client_options import ClientOptions
 
 
 # TODO -ClientSession is not a good choice for AsyncClient inheritance
@@ -30,9 +31,14 @@ class SupabaseAuthClient(AsyncGoTrueClient):
         """Instantiate SupabaseAuthClient instance."""
         if headers is None:
             headers = {}
-
-        AsyncGoTrueClient.__init__(
-            self,
+        self.options = ClientOptions(
+            auto_refresh_token=auto_refresh_token,
+            persist_session=persist_session,
+            storage=storage,
+            headers=headers,
+            flow_type=flow_type,
+        )
+        super().__init__(
             url=url,
             headers=headers,
             storage_key=storage_key,
