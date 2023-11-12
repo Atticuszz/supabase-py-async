@@ -77,7 +77,7 @@ class AsyncClient:
         self.functions_url = f"{supabase_url}/functions/v1"
         self.schema = options.schema
         # Instantiate clients.
-        self.admin_auth_client = self._init_supabase_auth_client(
+        self.auth = self._init_supabase_auth_client(
             auth_url=self.auth_url,
             client_options=self.options,
         )
@@ -94,11 +94,11 @@ class AsyncClient:
 
     async def add_auth_clients(self, auth_response: AuthResponse):
         """
-        >>> auth_response:AuthResponse = await self.admin_auth_client.sign_in_with_password({"email":ur_email, "password":ur_password)
+        >>> auth_response:AuthResponse = await self.auth.sign_in_with_password({"email":ur_email, "password":ur_password)
         #  or other sign in methods
-        >>> await self.add_auth_clients(auth_response)
+        >>> await supabase.add_auth_clients(auth_response)
         # next time your can use operation with supabase like this,i assume you get a user access_token
-        >>> auth_client = await self.update_auth_session(access_token)
+        >>> auth_client = await self.update_auth_session(auth_response.seesion.access_token)
         >>> await self.table("ur_table_name",auth_client).select("*").execute()
         """
         # create a new auth client for the user
@@ -113,8 +113,11 @@ class AsyncClient:
         )
 
         session: Session | None = await auth_client.get_session()
-        auth_client.options.headers = self._get_token_header(
-            session.access_token)
+        if session is None:
+            # you should catch it and do something
+            raise AuthSessionMissingError
+        # update auth in header
+        auth_client.options.headers.update(self._get_token_header(session.access_token))
         self.auth_clients[auth_response.session.access_token] = auth_client
 
     async def update_auth_session(self, auth_token: str) -> SupabaseAuthClient:
@@ -134,7 +137,7 @@ class AsyncClient:
             raise AuthSessionMissingError
         elif new_token != auth_token:
             # update auth_client client
-            auth_client.options.headers = self._get_token_header(new_token)
+            auth_client.options.headers.update(self._get_token_header(new_token))
             del self.auth_clients[auth_token]
             self.auth_clients[new_token] = self._init_supabase_auth_client(
                 auth_url=self.auth_url,

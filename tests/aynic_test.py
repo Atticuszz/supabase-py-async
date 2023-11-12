@@ -17,8 +17,8 @@ async def test_get_all():
     key = os.getenv("SUPABASE_TEST_KEY")
     # 创建客户端
     client = create_client(url, key)
-    response = await client.table("task_done_list").select("*").execute()
-    # print(response.data)
+    response = await client.table("task_done_list", client.auth).select("*").execute()
+    print(response.data)
 
 
 @pytest.mark.asyncio
@@ -28,7 +28,7 @@ async def test_sign_in():
     key = os.getenv("SUPABASE_TEST_KEY")
     # 创建客户端
     client = create_client(url, key)
-    response: AuthResponse = await client.admin_auth_client.sign_in_with_password(
+    response: AuthResponse = await client.auth.sign_in_with_password(
         {'email': 'zhouge1831@gmail.com', 'password': 'Zz030327#'}
     )
 
@@ -42,7 +42,7 @@ async def test_operate_with_token():
     key = os.getenv("SUPABASE_TEST_KEY")
     # 创建客户端
     client = create_client(url, key)
-    response: AuthResponse = await client.admin_auth_client.sign_in_with_password(
+    response: AuthResponse = await client.auth.sign_in_with_password(
         {'email': 'zhouge1831@gmail.com', 'password': 'Zz030327#'}
     )
     # print(response)
@@ -52,7 +52,7 @@ async def test_operate_with_token():
     data = await client.table("task_done_list", auth_client).select("*").execute()
     print(data)
 #
-if __name__ == '__main__':
-    # asyncio.run(test_sign_in())
-    #     # asyncio.run(sign_in())
-    asyncio.run(test_operate_with_token())
+# if __name__ == '__main__':
+#     # asyncio.run(test_sign_in())
+#     #     # asyncio.run(sign_in())
+#     asyncio.run(test_operate_with_token())
