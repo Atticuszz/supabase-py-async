@@ -1,31 +1,27 @@
-from typing import Dict, Optional
+from gotrue import (
+    AsyncGoTrueClient,
+    AsyncMemoryStorage,
+    AsyncSupportedStorage,
+    AuthFlowType,
+)
+from gotrue.http_clients import AsyncClient
 
-# from httpx import AsyncClient as BaseClient
-from aiohttp import ClientSession as BaseClient
-from gotrue import AuthFlowType, AsyncGoTrueClient, AsyncMemoryStorage, AsyncSupportedStorage
-
-from .client_options import ClientOptions
-
-
-# TODO -ClientSession is not a good choice for AsyncClient inheritance
-class AsyncClient(BaseClient):
-    def aclose(self) -> None:
-        self.close()
+from supabase_py_async.lib.client_options import ClientOptions
 
 
-class SupabaseAuthClient(AsyncGoTrueClient):
+class AsyncSupabaseAuthClient(AsyncGoTrueClient):
     """SupabaseAuthClient"""
 
     def __init__(
             self,
             *,
             url: str,
-            headers: Optional[Dict[str, str]] = None,
-            storage_key: Optional[str] = None,
+            headers: dict[str, str] | None = None,
+            storage_key: str | None = None,
             auto_refresh_token: bool = True,
             persist_session: bool = True,
             storage: AsyncSupportedStorage = AsyncMemoryStorage(),
-            http_client: Optional[AsyncClient] = None,
+            http_client: AsyncClient | None = None,
             flow_type: AuthFlowType = "implicit"
     ):
         """Instantiate SupabaseAuthClient instance."""

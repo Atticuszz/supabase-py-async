@@ -3,7 +3,7 @@ import re
 from typing import Any, Dict, Union
 
 from aiohttp import ClientTimeout as Timeout
-from deprecation import deprecated
+# from deprecation import deprecated
 from gotrue.errors import AuthSessionMissingError
 from gotrue.types import AuthChangeEvent, AuthResponse
 # from postgrest import SyncFilterRequestBuilder, SyncPostgrestClient, SyncRequestBuilder
@@ -12,13 +12,13 @@ from postgrest import AsyncPostgrestClient, AsyncRequestBuilder
 from postgrest._async.request_builder import AsyncRPCFilterRequestBuilder
 # from gotrue.types import AsyncSupabaseAuthClient
 from postgrest.constants import DEFAULT_POSTGREST_CLIENT_TIMEOUT
-from storage3.constants import DEFAULT_TIMEOUT as DEFAULT_STORAGE_CLIENT_TIMEOUT
+# from storage3.constants import DEFAULT_TIMEOUT as DEFAULT_STORAGE_CLIENT_TIMEOUT
 from supafunc import AsyncFunctionsClient
 
-from .lib.auth_client import SupabaseAuthClient
+from .lib.auth_client import AsyncSupabaseAuthClient
 from .lib.client_options import ClientOptions
-from .lib.storage_client import SupabaseStorageClient
 from .types import Session
+
 
 # Create an exception class when user does not provide a valid url or key.
 
@@ -81,7 +81,7 @@ class AsyncClient:
             auth_url=self.auth_url,
             client_options=self.options,
         )
-        self.auth_clients: dict[str, SupabaseAuthClient] = {}
+        self.auth_clients: dict[str, AsyncSupabaseAuthClient] = {}
         # TODO: Bring up to parity with JS client.
         # self.realtime: SupabaseRealtimeClient = self._init_realtime_client(
         #     realtime_url=self.realtime_url,
@@ -107,7 +107,7 @@ class AsyncClient:
             headers=self._get_token_header(
                 auth_response.session.access_token))
 
-        auth_client: SupabaseAuthClient = self._init_supabase_auth_client(
+        auth_client: AsyncSupabaseAuthClient = self._init_supabase_auth_client(
             auth_url=self.auth_url,
             client_options=self.options,
         )
@@ -120,13 +120,13 @@ class AsyncClient:
         auth_client.options.headers.update(self._get_token_header(session.access_token))
         self.auth_clients[auth_response.session.access_token] = auth_client
 
-    async def update_auth_session(self, auth_token: str) -> SupabaseAuthClient:
+    async def update_auth_session(self, auth_token: str) -> AsyncSupabaseAuthClient:
         """
         every operation should call this function to get new auth token
         update auth token
         exception:AuthSessionMissingError which means auth session has expired or log out or have not log in or do not exist
         """
-        auth_client: SupabaseAuthClient = self.auth_clients[auth_token]
+        auth_client: AsyncSupabaseAuthClient = self.auth_clients[auth_token]
         # get session function have consider all stuffs like refresh
         # token,expired...
         session: Session | None = await auth_client.get_session()
@@ -154,7 +154,7 @@ class AsyncClient:
     def table(
             self,
             table_name: str,
-            auth_client: SupabaseAuthClient) -> AsyncRequestBuilder:
+            auth_client: AsyncSupabaseAuthClient) -> AsyncRequestBuilder:
         """Perform a table operation.
 
         Note that the supabase client uses the `from` method, but in Python,
@@ -172,7 +172,7 @@ class AsyncClient:
     def rpc(self,
             fn: str,
             params: Dict[Any, Any],
-            auth_client: SupabaseAuthClient) -> AsyncRPCFilterRequestBuilder[Any]:
+            auth_client: AsyncSupabaseAuthClient) -> AsyncRPCFilterRequestBuilder[Any]:
         """Performs a stored procedure call.
 
         Parameters
@@ -196,20 +196,20 @@ class AsyncClient:
         )
         return postgrest.rpc(fn, params)
 
-    def storage(
-            self,
-            auth_client: SupabaseAuthClient) -> SupabaseStorageClient:
-        """Returns a storage client."""
-        storage = self._init_storage_client(
-            storage_url=self.storage_url,
-            headers=auth_client.options.headers,
-            storage_client_timeout=auth_client.options.storage_client_timeout,
-        )
-        return storage
+    # def storage(
+    #         self,
+    #         auth_client: AsyncSupabaseAuthClient) -> SupabaseStorageClient:
+    #     """Returns a storage client."""
+    #     storage = self._init_storage_client(
+    #         storage_url=self.storage_url,
+    #         headers=auth_client.options.headers,
+    #         storage_client_timeout=auth_client.options.storage_client_timeout,
+    #     )
+    #     return storage
 
     def functions(
             self,
-            auth_client: SupabaseAuthClient) -> AsyncFunctionsClient:
+            auth_client: AsyncSupabaseAuthClient) -> AsyncFunctionsClient:
         functions = AsyncFunctionsClient(
             self.functions_url, auth_client.options.headers)
         return functions
@@ -249,22 +249,22 @@ class AsyncClient:
     #     return SupabaseRealtimeClient(
     #         realtime_url, {"params": {"apikey": supabase_key}}
     #     )
-    @staticmethod
-    def _init_storage_client(
-            storage_url: str,
-            headers: Dict[str, str],
-            storage_client_timeout: int = DEFAULT_STORAGE_CLIENT_TIMEOUT,
-    ) -> SupabaseStorageClient:
-        return SupabaseStorageClient(
-            storage_url, headers, storage_client_timeout)
+    # @staticmethod
+    # def _init_storage_client(
+    #         storage_url: str,
+    #         headers: Dict[str, str],
+    #         storage_client_timeout: int = DEFAULT_STORAGE_CLIENT_TIMEOUT,
+    # ) -> SupabaseStorageClient:
+    #     return SupabaseStorageClient(
+    #         storage_url, headers, storage_client_timeout)
 
     @staticmethod
     def _init_supabase_auth_client(
             auth_url: str,
             client_options: ClientOptions,
-    ) -> SupabaseAuthClient:
+    ) -> AsyncSupabaseAuthClient:
         """Creates a wrapped instance of the GoTrue Client."""
-        return SupabaseAuthClient(
+        return AsyncSupabaseAuthClient(
             url=auth_url,
             auto_refresh_token=client_options.auto_refresh_token,
             persist_session=client_options.persist_session,

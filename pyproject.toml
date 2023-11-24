@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "supabase-py-async"
-version = "2.0.5"
+version = "2.0.6"
 description = "supabase-py with async synax"
 authors = ["Atticuszz <1831768457@qq.com>"]
 homepage ="https://github.com/Atticuszz/supabase-py_async"
@@ -10,20 +10,25 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.13"
-aiohttp = "^3.8.6"
 deprecation = "^2.1.0"
 gotrue = "^1.2.0"
 postgrest = "^0.13.0"
 storage3 = "^0.6.1"
 realtime = "^1.0.0"
 supafunc = "0.3.1"
+aiohttp = "^3.9.0"
 
 
 [tool.poetry.group.dev.dependencies]
 pytest-dotenv = "^0.5.2"
 pytest = "^7.4.3"
 pytest-asyncio = "^0.21.1"
-
+[tool.semantic_release]
+version_variables = ["supabase/__version__.py:__version__"]
+version_toml = ["pyproject.toml:tool.poetry.version"]
+build_command = "poetry install && poetry build"
+branch = "master"
+upload_to_vcs_release = true
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
