@@ -47,7 +47,7 @@ For local development, clone this repo and install in Development mode with `pip
 
 ## What's new?
 
-### 2.0.6
+### 2.1.0
 
 - removed store client
 - followed the supabase-py 2.1.0
