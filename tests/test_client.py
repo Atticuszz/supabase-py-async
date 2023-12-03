@@ -8,8 +8,8 @@ import pytest
 )
 @pytest.mark.parametrize("url", ["", None, "valeefgpoqwjgpj", 139, -1, {}, []])
 @pytest.mark.parametrize("key", ["", None, "valeefgpoqwjgpj", 139, -1, {}, []])
-def test_incorrect_values_dont_instantiate_client(url: Any, key: Any) -> None:
+async def test_incorrect_values_dont_instantiate_client(url: Any, key: Any) -> None:
     """Ensure we can't instantiate client with invalid values."""
     from supabase_py_async import AsyncClient, create_client
 
-    _: AsyncClient = create_client(url, key)
+    _: AsyncClient = await create_client(url, key)

@@ -1,28 +1,23 @@
-# coding=utf-8
 import re
 from typing import Any, Dict, Union
 
-from aiohttp import ClientTimeout as Timeout
-# from deprecation import deprecated
-from gotrue.errors import AuthSessionMissingError
-from gotrue.types import AuthChangeEvent, AuthResponse
-# from postgrest import SyncFilterRequestBuilder, SyncPostgrestClient, SyncRequestBuilder
-# 我们假设这些都是异步库的版本
-from postgrest import AsyncPostgrestClient, AsyncRequestBuilder
+from gotrue.types import AuthChangeEvent, Session
+from httpx import Timeout
+from postgrest import (
+    AsyncPostgrestClient,
+    AsyncRequestBuilder,
+)
 from postgrest._async.request_builder import AsyncRPCFilterRequestBuilder
-# from gotrue.types import AsyncSupabaseAuthClient
 from postgrest.constants import DEFAULT_POSTGREST_CLIENT_TIMEOUT
-# from storage3.constants import DEFAULT_TIMEOUT as DEFAULT_STORAGE_CLIENT_TIMEOUT
+from storage3 import AsyncStorageClient
+from storage3.constants import DEFAULT_TIMEOUT as DEFAULT_STORAGE_CLIENT_TIMEOUT
 from supafunc import AsyncFunctionsClient
 
 from .lib.auth_client import AsyncSupabaseAuthClient
 from .lib.client_options import ClientOptions
-from .types import Session
 
 
 # Create an exception class when user does not provide a valid url or key.
-
-
 class SupabaseException(Exception):
     def __init__(self, message: str):
         self.message = message
@@ -68,6 +63,9 @@ class AsyncClient:
 
         self.supabase_url = supabase_url
         self.supabase_key = supabase_key
+        self._auth_token = {
+            "Authorization": f"Bearer {supabase_key}",
+        }
         options.headers.update(self._get_auth_headers())
         self.options = options
         self.rest_url = f"{supabase_url}/rest/v1"
@@ -76,103 +74,52 @@ class AsyncClient:
         self.storage_url = f"{supabase_url}/storage/v1"
         self.functions_url = f"{supabase_url}/functions/v1"
         self.schema = options.schema
+
         # Instantiate clients.
         self.auth = self._init_supabase_auth_client(
             auth_url=self.auth_url,
-            client_options=self.options,
+            client_options=options,
         )
-        self.auth_clients: dict[str, AsyncSupabaseAuthClient] = {}
         # TODO: Bring up to parity with JS client.
         # self.realtime: SupabaseRealtimeClient = self._init_realtime_client(
         #     realtime_url=self.realtime_url,
         #     supabase_key=self.supabase_key,
         # )
-        # removed in 2.0.4
-        # self.auth.on_auth_state_change(self._listen_to_auth_events)
+        self.realtime = None
+        self._postgrest = None
+        self._storage = None
+        self._functions = None
+        self.auth.on_auth_state_change(self._listen_to_auth_events)
 
-    #     add to single async function to start up listeners
+    @classmethod
+    async def create(
+            cls,
+            supabase_url: str,
+            supabase_key: str,
+            options: ClientOptions = ClientOptions(),
+    ):
+        client = cls(supabase_url, supabase_key, options)
+        client._auth_token = await client._get_token_header()
+        return client
 
-    async def add_auth_clients(self, auth_response: AuthResponse):
-        """
-        >>> auth_response:AuthResponse = await self.auth.sign_in_with_password({"email":ur_email, "password":ur_password)
-        #  or other sign in methods
-        >>> await supabase.add_auth_clients(auth_response)
-        # next time your can use operation with supabase like this,i assume you get a user access_token
-        >>> auth_client = await self.update_auth_session(auth_response.seesion.access_token)
-        >>> await self.table("ur_table_name",auth_client).select("*").execute()
-        """
-        # create a new auth client for the user
-        # use auth key to sign in and update token header for different roles
-        options = ClientOptions(
-            headers=self._get_token_header(
-                auth_response.session.access_token))
-
-        auth_client: AsyncSupabaseAuthClient = self._init_supabase_auth_client(
-            auth_url=self.auth_url,
-            client_options=self.options,
-        )
-
-        session: Session | None = await auth_client.get_session()
-        if session is None:
-            # you should catch it and do something
-            raise AuthSessionMissingError
-        # update auth in header
-        auth_client.options.headers.update(self._get_token_header(session.access_token))
-        self.auth_clients[auth_response.session.access_token] = auth_client
-
-    async def update_auth_session(self, auth_token: str) -> AsyncSupabaseAuthClient:
-        """
-        every operation should call this function to get new auth token
-        update auth token
-        exception:AuthSessionMissingError which means auth session has expired or log out or have not log in or do not exist
-        """
-        auth_client: AsyncSupabaseAuthClient = self.auth_clients[auth_token]
-        # get session function have consider all stuffs like refresh
-        # token,expired...
-        session: Session | None = await auth_client.get_session()
-        new_token = session.access_token
-        if session is None:
-            del self.auth_clients[auth_token]
-            # you should catch it and do something
-            raise AuthSessionMissingError
-        elif new_token != auth_token:
-            # update auth_client client
-            auth_client.options.headers.update(self._get_token_header(new_token))
-            del self.auth_clients[auth_token]
-            self.auth_clients[new_token] = self._init_supabase_auth_client(
-                auth_url=self.auth_url,
-                client_options=auth_client.options,
-            )
-        return self.auth_clients[new_token]
-
-    async def schedue_check_auth_session(self, auth_token: str):
-        """
-        check auth session and refresh token
-        """
-        pass
-
-    def table(
-            self,
-            table_name: str,
-            auth_client: AsyncSupabaseAuthClient) -> AsyncRequestBuilder:
+    def table(self, table_name: str) -> AsyncRequestBuilder:
         """Perform a table operation.
 
         Note that the supabase client uses the `from` method, but in Python,
         this is a reserved keyword, so we have elected to use the name `table`.
         Alternatively you can use the `.from_()` method.
         """
-        postgrest = self._init_postgrest_client(
-            rest_url=self.rest_url,
-            headers=auth_client.options.headers,
-            schema=auth_client.options.schema,
-            timeout=auth_client.options.postgrest_client_timeout,
-        )
-        return postgrest.from_(table_name)
+        return self.from_(table_name)
 
-    def rpc(self,
-            fn: str,
-            params: Dict[Any, Any],
-            auth_client: AsyncSupabaseAuthClient) -> AsyncRPCFilterRequestBuilder[Any]:
+    def from_(self, table_name: str) -> AsyncRequestBuilder:
+        """Perform a table operation.
+
+        See the `table` method.
+        """
+        return self.postgrest.from_(table_name)
+
+    def rpc(self, fn: str, params: Dict[Any, Any]
+            ) -> AsyncRPCFilterRequestBuilder[Any]:
         """Performs a stored procedure call.
 
         Parameters
@@ -188,75 +135,48 @@ class AsyncClient:
             Returns a filter builder. This lets you apply filters on the response
             of an RPC.
         """
-        postgrest = self._init_postgrest_client(
-            rest_url=self.rest_url,
-            headers=auth_client.options.headers,
-            schema=auth_client.options.schema,
-            timeout=auth_client.options.postgrest_client_timeout,
-        )
-        return postgrest.rpc(fn, params)
+        return self.postgrest.rpc(fn, params)
 
-    # def storage(
-    #         self,
-    #         auth_client: AsyncSupabaseAuthClient) -> SupabaseStorageClient:
-    #     """Returns a storage client."""
-    #     storage = self._init_storage_client(
-    #         storage_url=self.storage_url,
-    #         headers=auth_client.options.headers,
-    #         storage_client_timeout=auth_client.options.storage_client_timeout,
-    #     )
-    #     return storage
+    @property
+    def postgrest(self):
+        if self._postgrest is None:
+            self.options.headers.update(self._auth_token)
+            self._postgrest = self._init_postgrest_client(
+                rest_url=self.rest_url,
+                headers=self.options.headers,
+                schema=self.options.schema,
+                timeout=self.options.postgrest_client_timeout,
+            )
 
-    def functions(
-            self,
-            auth_client: AsyncSupabaseAuthClient) -> AsyncFunctionsClient:
-        functions = AsyncFunctionsClient(
-            self.functions_url, auth_client.options.headers)
-        return functions
+        return self._postgrest
 
-    #     async def remove_subscription_helper(resolve):
-    #         try:
-    #             await self._close_subscription(subscription)
-    #             open_subscriptions = len(self.get_subscriptions())
-    #             if not open_subscriptions:
-    #                 error = await self.realtime.disconnect()
-    #                 if error:
-    #                     return {"error": None, "data": { open_subscriptions}}
-    #         except Exception as e:
-    #             raise e
-    #     return remove_subscription_helper(subscription)
+    @property
+    def storage(self):
+        if self._storage is None:
+            headers = self._get_auth_headers()
+            headers.update(self._auth_token)
+            self._storage = self._init_storage_client(
+                storage_url=self.storage_url,
+                headers=headers,
+                storage_client_timeout=self.options.storage_client_timeout,
+            )
+        return self._storage
 
-    # async def _close_subscription(self, subscription):
-    #    """Close a given subscription
+    @property
+    def functions(self):
+        if self._functions is None:
+            headers = self._get_auth_headers()
+            headers.update(self._auth_token)
+            self._functions = AsyncFunctionsClient(self.functions_url, headers)
+        return self._functions
 
-    #    Parameters
-    #    ----------
-    #    subscription
-    #        The name of the channel
-    #    """
-    #    if not subscription.closed:
-    #        await self._closeChannel(subscription)
-
-    # def get_subscriptions(self):
-    #     """Return all channels the client is subscribed to."""
-    #     return self.realtime.channels
-
-    # @staticmethod
-    # def _init_realtime_client(
-    #     realtime_url: str, supabase_key: str
-    # ) -> SupabaseRealtimeClient:
-    #     """Private method for creating an instance of the realtime-py client."""
-    #     return SupabaseRealtimeClient(
-    #         realtime_url, {"params": {"apikey": supabase_key}}
-    #     )
-    # @staticmethod
-    # def _init_storage_client(
-    #         storage_url: str,
-    #         headers: Dict[str, str],
-    #         storage_client_timeout: int = DEFAULT_STORAGE_CLIENT_TIMEOUT,
-    # ) -> SupabaseStorageClient:
-    #     return SupabaseStorageClient(
-    #         storage_url, headers, storage_client_timeout)
+    @staticmethod
+    def _init_storage_client(
+            storage_url: str,
+            headers: Dict[str, str],
+            storage_client_timeout: int = DEFAULT_STORAGE_CLIENT_TIMEOUT,
+    ) -> AsyncStorageClient:
+        return AsyncStorageClient(storage_url, headers, storage_client_timeout)
 
     @staticmethod
     def _init_supabase_auth_client(
@@ -287,21 +207,23 @@ class AsyncClient:
 
     def _get_auth_headers(self) -> Dict[str, str]:
         """Helper method to get auth headers."""
-        # What's the corresponding method to get the token
         return {
             "apiKey": self.supabase_key,
             "Authorization": f"Bearer {self.supabase_key}",
         }
 
-    def _get_token_header(self, access_token: str |
-                                              None = None) -> Dict[str, str]:
-        """Helper method to get and verify token header."""
-        access_token = access_token if access_token else self.supabase_key
+    async def _get_token_header(self):
+        try:
+            session = await self.auth.get_session()
+            access_token = session.access_token
+        except Exception:
+            access_token = self.supabase_key
+
         return {
             "Authorization": f"Bearer {access_token}",
         }
 
-    def _listen_to_auth_events(self, event: AuthChangeEvent):
+    def _listen_to_auth_events(self, event: AuthChangeEvent, session: Session):
         if event in ["SIGNED_IN", "TOKEN_REFRESHED", "SIGNED_OUT"]:
             # reset postgrest and storage instance on event change
             self._postgrest = None
@@ -309,7 +231,7 @@ class AsyncClient:
             self._functions = None
 
 
-def create_client(
+async def create_client(
         supabase_url: str,
         supabase_key: str,
         options: ClientOptions = ClientOptions(),
@@ -330,17 +252,16 @@ def create_client(
     --------
     Instantiating the client.
     >>> import os
-    >>> from supabase_py_async import create_client, AsyncClient
+    >>> from supabase import create_client, Client
     >>>
     >>> url: str = os.environ.get("SUPABASE_TEST_URL")
     >>> key: str = os.environ.get("SUPABASE_TEST_KEY")
-    >>> supabase: AsyncClient =  create_client(url, key)
+    >>> supabase: Client = create_client(url, key)
 
     Returns
     -------
     Client
     """
-    return AsyncClient(
-        supabase_url=supabase_url,
-        supabase_key=supabase_key,
-        options=options)
+    return await AsyncClient.create(
+        supabase_url=supabase_url, supabase_key=supabase_key, options=options
+    )

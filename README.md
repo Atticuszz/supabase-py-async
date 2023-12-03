@@ -18,6 +18,9 @@ of [supabase-js](https://github.com/supabase/supabase-js/blob/master/README.md).
 
 but i am not hahah👻,it doesn't mirrors the design of supabase-js ,py is not frontend language,we must change the design
 and cater to the python web framework like fastapi,etc
+
+# NOTE: it just the the async version of supabase-py with more code examples here ,code is almost same as supabase-py
+
 ## Status
 
 | Status | Stability    | Goal                                                                                                              |
@@ -46,6 +49,13 @@ poetry add supabase-py-async
 For local development, clone this repo and install in Development mode with `pip install -e`.
 
 ## What's new?
+
+### 2.2.0
+
+- followed the supabase-py 2.2.0
+- NOTE:!!!! we changed the way of to let the supabase_client to know who send the request by self.auth.set_session(
+  access_token,refresh_token) instead of pass auth_client in to operation func like self.table('your_table').select('*')
+  .execute()
 
 ### 2.1.0
 
@@ -84,55 +94,93 @@ export SUPABASE_KEY="my-supa-dupa-secret-supabase-api-key"
 
 This client is designed to be used asynchronously. Below are some examples on how to use it.
 
-### Initialize Supabase Client
+### Initialize Supabase Client and Auth in request
 
 ```python
-import os
-from supabase_py_async import create_client, AsyncClient
+from fastapi import FastAPI, Depends, HTTPException, Header
+from pydantic import BaseModel
+from typing import Optional
+from supabase import create_client, Client
 
-url: str = os.environ.get("SUPABASE_URL")
+app = FastAPI()
 
-key: str = os.environ.get("SUPABASE_KEY")
+SUPABASE_URL = "your_supabase_url"
+SUPABASE_KEY = "your_supabase_anon_key"
 
-supabase: AsyncClient = create_client(url, key)
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+
+
+class UserLogin(BaseModel):
+  email: str
+  password: str
+
+
+@app.post("/login")
+async def login(user: UserLogin):
+  response = await supabase.auth.sign_in_with_password(
+    email=user.email, password=user.password
+  )
+  if response.error:
+    raise HTTPException(status_code=400, detail=response.error.message)
+  return response.session
+
+
+async def get_current_user(authorization: Optional[str] = Header(None)):
+  if not authorization:
+    raise HTTPException(status_code=401, detail="Unauthorized")
+  tokens = authorization.split(" ")
+
+  # Check if there are two tokens (access token and refresh token)
+  if len(tokens) != 2:
+    raise HTTPException(status_code=401, detail="Invalid authorization header format")
+
+  # Extract the access token and refresh token
+  access_token, refresh_token = tokens
+  try:
+    session = await supabase.auth.set_session(access_token=access_token, refresh_token=refresh_token)
+    return session
+  except Exception as e:
+    raise HTTPException(status_code=401, detail="Invalid token")
+
+
+@app.get("/protected")
+async def protected_route(session: dict = Depends(get_current_user)):
+  result = await supabase.table('your_table').select('*').execute()
+  return result.data
+
+
+@app.post("/refresh-token")
+async def refresh_token(refresh_token: str):
+  try:
+    new_session = await supabase.auth.refresh_session(refresh_token)
+    return new_session
+  except Exception as e:
+    raise HTTPException(status_code=401, detail="Could not refresh token")
+
 ```
 
 ### Async Data Operations
 
 ```python
 async def data_operations():
-    # Note:  opereations should be sent operator(auth_client)!!
-    auth_response: AuthResponse = await self.auth.sign_in_with_password({"email": ur_email, "password": ur_password)
-    #  or other sign in methods
-    await supabase.add_auth_clients(auth_response)
-    # next time your can use operation with supabase like this,i assume you get a user access_token
-    auth_client = await self.update_auth_session(auth_response.seesion.access_token)  # or access_token from other place
+  auth_response: AuthResponse = await self.auth.sign_in_with_password({"email": ur_email, "password": ur_password)
+  #  or other sign in methods    
+  # Insert
+  insert_data = await supabase.table("countries").insert({"name": "Germany"}).execute()
 
-    # Insert
-    insert_data = await supabase.table("countries", auth_client).insert({"name": "Germany"}).execute()
+  # Select
+  select_data = await supabase.table("countries").select("*").eq("country", "IL").execute()
 
-    # Select
-    select_data = await supabase.table("countries", auth_client).select("*").eq("country", "IL").execute()
+  # Update
+  update_data = await supabase.table("countries").update(
+    {"country": "Indonesia", "capital_city": "Jakarta"}).eq("id", 1).execute()
 
-    # Update
-    update_data = await supabase.table("countries", auth_client).update(
-        {"country": "Indonesia", "capital_city": "Jakarta"}).eq("id", 1).execute()
+  # Delete
+  delete_data = await supabase.table("countries").delete().eq("id", 1).execute()
 
-    # Delete
-    delete_data = await supabase.table("countries", auth_client).delete().eq("id", 1).execute()
-
-    # note: every operation should be get a auth_client from access_token
-    asyncio.run(data_operations())
-```
-
-### Async Authentication
-
-```python
-async def async_auth():
-  random_email: str = "email@example.com"
-  random_password: str = "supersecurepassword"
-  auth_response: AuthResponse = await supabase.auth.sign_up(email=random_email, password=random_password)
-asyncio.run(async_auth())
+  # note: if you wanna handle the different users,you should called  self.auth.set_session(access_token,refresh_token)
+  #  and then you can use the auth_clients in AsyncClient in the request that set_session is called
+  asyncio.run(data_operations())
 ```
 
 <!-- Include more examples and documentation links -->

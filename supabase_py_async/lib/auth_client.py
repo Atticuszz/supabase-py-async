@@ -6,8 +6,6 @@ from gotrue import (
 )
 from gotrue.http_clients import AsyncClient
 
-from supabase_py_async.lib.client_options import ClientOptions
-
 
 class AsyncSupabaseAuthClient(AsyncGoTrueClient):
     """SupabaseAuthClient"""
@@ -27,13 +25,6 @@ class AsyncSupabaseAuthClient(AsyncGoTrueClient):
         """Instantiate SupabaseAuthClient instance."""
         if headers is None:
             headers = {}
-        self.options = ClientOptions(
-            auto_refresh_token=auto_refresh_token,
-            persist_session=persist_session,
-            storage=storage,
-            headers=headers,
-            flow_type=flow_type,
-        )
         super().__init__(
             url=url,
             headers=headers,
