@@ -100,7 +100,7 @@ This client is designed to be used asynchronously. Below are some examples on ho
 from fastapi import FastAPI, Depends, HTTPException, Header
 from pydantic import BaseModel
 from typing import Optional
-from supabase import create_client, AsyncClient
+from supabase_py_async import create_client, AsyncClient
 from contextlib import asynccontextmanager
 
 app = FastAPI()
