@@ -100,62 +100,66 @@ This client is designed to be used asynchronously. Below are some examples on ho
 from fastapi import FastAPI, Depends, HTTPException, Header
 from pydantic import BaseModel
 from typing import Optional
-from supabase import create_client, Client
+from supabase_py_async import create_client, AsyncClient
+from contextlib import asynccontextmanager
 
 app = FastAPI()
 
 SUPABASE_URL = "your_supabase_url"
 SUPABASE_KEY = "your_supabase_anon_key"
 
-supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
-
+supabase: Optional[AsyncClient] = None
 
 class UserLogin(BaseModel):
-  email: str
-  password: str
+    email: str
+    password: str
 
+@asynccontextmanager
+async def setup_supabase():
+    global supabase
+    supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+    yield
+    # add some code that you wana run as the app shut down
+
+app = FastAPI(lifespan=setup_supabase)
 
 @app.post("/login")
 async def login(user: UserLogin):
-  response = await supabase.auth.sign_in_with_password(
-    email=user.email, password=user.password
-  )
-  if response.error:
-    raise HTTPException(status_code=400, detail=response.error.message)
-  return response.session
-
+    response = await supabase.auth.sign_in_with_password(
+        email=user.email, password=user.password
+    )
+    if response.error:
+        raise HTTPException(status_code=400, detail=response.error.message)
+    return response.session
 
 async def get_current_user(authorization: Optional[str] = Header(None)):
-  if not authorization:
-    raise HTTPException(status_code=401, detail="Unauthorized")
-  tokens = authorization.split(" ")
+    if not authorization:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+    tokens = authorization.split(" ")
 
-  # Check if there are two tokens (access token and refresh token)
-  if len(tokens) != 2:
-    raise HTTPException(status_code=401, detail="Invalid authorization header format")
+    if len(tokens) != 2:
+        raise HTTPException(status_code=401, detail="Invalid authorization header format")
 
-  # Extract the access token and refresh token
-  access_token, refresh_token = tokens
-  try:
-    session = await supabase.auth.set_session(access_token=access_token, refresh_token=refresh_token)
-    return session
-  except Exception as e:
-    raise HTTPException(status_code=401, detail="Invalid token")
-
+    access_token, refresh_token = tokens
+    try:
+        session = await supabase.auth.set_session(access_token=access_token, refresh_token=refresh_token)
+        return session
+    except Exception as e:
+        raise HTTPException(status_code=401, detail="Invalid token")
 
 @app.get("/protected")
 async def protected_route(session: dict = Depends(get_current_user)):
-  result = await supabase.table('your_table').select('*').execute()
-  return result.data
-
+    result = await supabase.table('your_table').select('*').execute()
+    return result.data
 
 @app.post("/refresh-token")
 async def refresh_token(refresh_token: str):
-  try:
-    new_session = await supabase.auth.refresh_session(refresh_token)
-    return new_session
-  except Exception as e:
-    raise HTTPException(status_code=401, detail="Could not refresh token")
+    try:
+        new_session = await supabase.auth.refresh_session(refresh_token)
+        return new_session
+    except Exception as e:
+        raise HTTPException(status_code=401, detail="Could not refresh token")
+
 
 ```
 
