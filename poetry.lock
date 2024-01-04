@@ -801,17 +801,17 @@ test = ["pylint", "pytest", "pytest-black", "pytest-cov", "pytest-pylint"]
 
 [[package]]
 name = "supafunc"
-version = "0.3.1"
+version = "0.3.3"
 description = "Library for Supabase Functions"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "supafunc-0.3.1-py3-none-any.whl", hash = "sha256:8d0f3e09bd2d6bef2088cf91e4337aa920bf5e8ecadd24235e4a276c8c6b301c"},
-    {file = "supafunc-0.3.1.tar.gz", hash = "sha256:8ab338216f3845d52c45c9fdc3246a719d3f9b8d8647e8bc382fb5cdda54ddb9"},
+    {file = "supafunc-0.3.3-py3-none-any.whl", hash = "sha256:8260b4742335932f9cab64c8f66fb6998681b7e8ca7a46b559a4eb640cc0af80"},
+    {file = "supafunc-0.3.3.tar.gz", hash = "sha256:c35897a2f40465b40d7a08ae11f872f08eb8d1390c3ebc72c80e27d33ba91b99"},
 ]
 
 [package.dependencies]
-httpx = ">=0.24.0,<0.25.0"
+httpx = ">=0.24,<0.26"
 
 [[package]]
 name = "tomli"
@@ -1020,4 +1020,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.13"
-content-hash = "bd9b5f36aa5d9035d594e295d9ec4750e78827d4a215d52a94cc26563848cb2c"
+content-hash = "c4810d01dbef74c1e07c3e5ad8a970209f0d6e230444fdd35e77167957c5d73e"
