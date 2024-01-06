@@ -1,12 +1,9 @@
 import re
-from typing import Any, Dict, Union
+from typing import Any
 
 from gotrue.types import AuthChangeEvent, Session
 from httpx import Timeout
-from postgrest import (
-    AsyncPostgrestClient,
-    AsyncRequestBuilder,
-)
+from postgrest import AsyncPostgrestClient, AsyncRequestBuilder
 from postgrest._async.request_builder import AsyncRPCFilterRequestBuilder
 from postgrest.constants import DEFAULT_POSTGREST_CLIENT_TIMEOUT
 from storage3 import AsyncStorageClient
@@ -28,10 +25,10 @@ class AsyncClient:
     """Supabase client class."""
 
     def __init__(
-            self,
-            supabase_url: str,
-            supabase_key: str,
-            options: ClientOptions = ClientOptions(),
+        self,
+        supabase_url: str,
+        supabase_key: str,
+        options: ClientOptions = ClientOptions(),
     ):
         """Instantiate the client.
 
@@ -57,8 +54,8 @@ class AsyncClient:
 
         # Check if the key is a valid JWT
         if not re.match(
-                r"^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$",
-                supabase_key):
+            r"^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$", supabase_key
+        ):
             raise SupabaseException("Invalid API key")
 
         self.supabase_url = supabase_url
@@ -93,10 +90,10 @@ class AsyncClient:
 
     @classmethod
     async def create(
-            cls,
-            supabase_url: str,
-            supabase_key: str,
-            options: ClientOptions = ClientOptions(),
+        cls,
+        supabase_url: str,
+        supabase_key: str,
+        options: ClientOptions = ClientOptions(),
     ):
         client = cls(supabase_url, supabase_key, options)
         client._auth_token = await client._get_token_header()
@@ -118,8 +115,7 @@ class AsyncClient:
         """
         return self.postgrest.from_(table_name)
 
-    def rpc(self, fn: str, params: Dict[Any, Any]
-            ) -> AsyncRPCFilterRequestBuilder[Any]:
+    def rpc(self, fn: str, params: dict[Any, Any]) -> AsyncRPCFilterRequestBuilder[Any]:
         """Performs a stored procedure call.
 
         Parameters
@@ -172,16 +168,16 @@ class AsyncClient:
 
     @staticmethod
     def _init_storage_client(
-            storage_url: str,
-            headers: Dict[str, str],
-            storage_client_timeout: int = DEFAULT_STORAGE_CLIENT_TIMEOUT,
+        storage_url: str,
+        headers: dict[str, str],
+        storage_client_timeout: int = DEFAULT_STORAGE_CLIENT_TIMEOUT,
     ) -> AsyncStorageClient:
         return AsyncStorageClient(storage_url, headers, storage_client_timeout)
 
     @staticmethod
     def _init_supabase_auth_client(
-            auth_url: str,
-            client_options: ClientOptions,
+        auth_url: str,
+        client_options: ClientOptions,
     ) -> AsyncSupabaseAuthClient:
         """Creates a wrapped instance of the GoTrue Client."""
         return AsyncSupabaseAuthClient(
@@ -195,17 +191,17 @@ class AsyncClient:
 
     @staticmethod
     def _init_postgrest_client(
-            rest_url: str,
-            headers: Dict[str, str],
-            schema: str,
-            timeout: Union[int, float, Timeout] = DEFAULT_POSTGREST_CLIENT_TIMEOUT,
+        rest_url: str,
+        headers: dict[str, str],
+        schema: str,
+        timeout: int | float | Timeout = DEFAULT_POSTGREST_CLIENT_TIMEOUT,
     ) -> AsyncPostgrestClient:
         """Private helper for creating an instance of the Postgrest client."""
         return AsyncPostgrestClient(
             rest_url, headers=headers, schema=schema, timeout=timeout
         )
 
-    def _get_auth_headers(self) -> Dict[str, str]:
+    def _get_auth_headers(self) -> dict[str, str]:
         """Helper method to get auth headers."""
         return {
             "apiKey": self.supabase_key,
@@ -232,9 +228,9 @@ class AsyncClient:
 
 
 async def create_client(
-        supabase_url: str,
-        supabase_key: str,
-        options: ClientOptions = ClientOptions(),
+    supabase_url: str,
+    supabase_key: str,
+    options: ClientOptions = ClientOptions(),
 ) -> AsyncClient:
     """Create client function to instantiate supabase client like JS runtime.
 

@@ -11,16 +11,16 @@ class AsyncSupabaseAuthClient(AsyncGoTrueClient):
     """SupabaseAuthClient"""
 
     def __init__(
-            self,
-            *,
-            url: str,
-            headers: dict[str, str] | None = None,
-            storage_key: str | None = None,
-            auto_refresh_token: bool = True,
-            persist_session: bool = True,
-            storage: AsyncSupportedStorage = AsyncMemoryStorage(),
-            http_client: AsyncClient | None = None,
-            flow_type: AuthFlowType = "implicit"
+        self,
+        *,
+        url: str,
+        headers: dict[str, str] | None = None,
+        storage_key: str | None = None,
+        auto_refresh_token: bool = True,
+        persist_session: bool = True,
+        storage: AsyncSupportedStorage = AsyncMemoryStorage(),
+        http_client: AsyncClient | None = None,
+        flow_type: AuthFlowType = "implicit"
     ):
         """Instantiate SupabaseAuthClient instance."""
         if headers is None:

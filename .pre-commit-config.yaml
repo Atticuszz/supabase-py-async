@@ -1,4 +1,4 @@
-exclude: '^.*\.(md|MD)$'  # 排除所有 Markdown 文件
+exclude: '^.*\.(md|MD|xml|yml|yaml|json|ini|cfg|txt)$|^\.idea/'
 repos:
     - repo: https://github.com/pre-commit/pre-commit-hooks
       rev: v4.5.0
