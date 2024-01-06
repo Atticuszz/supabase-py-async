@@ -37,8 +37,8 @@ pytest-cov = "^4.1.0"
 tests = 'poetry_scripts:run_tests'
 
 [tool.semantic_release]
-version_variables = ["supabase_py_async/__version__.py:__version__"]
 version_toml = ["pyproject.toml:tool.poetry.version"]
+version_variables = ["supabase_py_async/__version__.py:__version__"]
 build_command = "curl -sSL https://install.python-poetry.org | python - --preview && export PATH=\"/github/home/.local/bin:$PATH\" && poetry install && poetry build"
 branch = "main"
 upload_to_vcs_release = true
