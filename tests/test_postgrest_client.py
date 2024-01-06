@@ -26,5 +26,4 @@ class TestPostgrestClient(TestBaseClient):
         assert api_rsp.data[0]["user_id"] == rsp.session.user.id, "user_id is not equal"
         assert api_rsp.data[0]["text"] == text, "text is not equal"
 
-
         # FIXME: not work for rls of insert bu authed user, {'code': '42501', 'details': None, 'hint': None, 'message': 'new row violates row-level security policy for table "test_table"'}
