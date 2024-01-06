@@ -6,7 +6,7 @@ def run_cmd(cmd):
 
 
 def run_tests():
-    # Install requirements
+    # Install requirements by poetry
     run_cmd("poetry install")
 
     # Run pre-commit tests
