@@ -16,6 +16,8 @@ load_dotenv()
 
 
 class TestBaseClient:
+    """base client for test"""
+
     url: str = os.getenv("SUPABASE_TEST_URL")
     key: str = os.getenv("SUPABASE_TEST_KEY")
     client: AsyncClient = None
