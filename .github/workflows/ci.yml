@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     name: "Bump version, create changelog and publish"
     environment:
-      name: pypi
+      name: supabase-py-async
       url: https://pypi.org/project/supabase-py-async/
     permissions:
       id-token: write # IMPORTANT: this permission is mandatory for trusted publishing
