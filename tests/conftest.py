@@ -11,9 +11,10 @@ def pytest_configure(config) -> None:
 
 
 @pytest.fixture(scope="session")
-def supabase() -> AsyncClient:
+@pytest.mark.asyncio
+async def supabase() -> AsyncClient:
     url = os.environ.get("SUPABASE_TEST_URL")
     assert url is not None, "Must provide SUPABASE_TEST_URL environment variable"
     key = os.environ.get("SUPABASE_TEST_KEY")
     assert key is not None, "Must provide SUPABASE_TEST_KEY environment variable"
-    return create_client(url, key)
+    return await create_client(url, key)
