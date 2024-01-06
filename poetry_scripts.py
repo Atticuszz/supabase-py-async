@@ -7,7 +7,7 @@ def run_cmd(cmd):
 
 def run_tests():
     # Install requirements
-    # run_cmd("poetry install")
+    run_cmd("poetry install")
 
     # Run pre-commit tests
     # run_cmd("poetry run pre-commit run --all-files")
@@ -16,5 +16,5 @@ def run_tests():
     run_cmd("poetry run pytest")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run_tests()

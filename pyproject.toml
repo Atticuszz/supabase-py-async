@@ -30,13 +30,12 @@ faker = "^22.0.0"
 tests = 'poetry_scripts:run_tests'
 
 [tool.semantic_release]
-version_variables = ["supabase/__version__.py:__version__"]
+version_variables = ["supabase_py_async/__version__.py:__version__"]
 version_toml = ["pyproject.toml:tool.poetry.version"]
 build_command = "poetry install && poetry build"
 branch = "main"
 upload_to_vcs_release = true
-
-
+commit_message = "chore(release): bump version to v{version}"
 
 
 [build-system]
