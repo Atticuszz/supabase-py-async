@@ -7,9 +7,12 @@
 """
 import os
 
+from dotenv import load_dotenv
 from faker import Faker
 
 from supabase_py_async import AsyncClient, create_client
+
+load_dotenv()
 
 
 class TestBaseClient:
@@ -21,6 +24,6 @@ class TestBaseClient:
     async def superuser_sign_in(self):
         self.client = await create_client(self.url, self.key)
         response = await self.client.auth.sign_in_with_password(
-            {'email': 'zhouge1831@gmail.com', 'password': 'Zz030327#'}
+            {"email": "zhouge1831@gmail.com", "password": "Zz030327#"}
         )
         return response
