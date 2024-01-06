@@ -12,209 +12,280 @@
 [![Contributors](https://img.shields.io/github/contributors/Atticuszz/supabase-py-async)](https://github.com/Atticuszz/supabase-py-async/graphs/contributors)
 [![Code Size](https://img.shields.io/github/languages/code-size/Atticuszz/supabase-py-async)](https://github.com/Atticuszz/supabase-py-async)
 
-Supabase client for Python with Async support. This project is an asynchronous variant
-of [supabase-py](https://github.com/supabase-community/supabase-py) and mirrors the design
-of [supabase-js](https://github.com/supabase/supabase-js/blob/master/README.md).
+async-part of supabase-py Python client for [Supabase](https://supabase.com)
 
-but i am not hahah👻,it doesn't mirrors the design of supabase-js ,py is not frontend language,we must change the design
-and cater to the python web framework like fastapi,etc
+- Documentation: [supabase.com/docs](https://supabase.com/docs/reference/python/introduction)
+- Usage:
+  - [Supabase with Python fastapi app](https://github.com/Atticuszz/fastapi_supabase_template)
+  - [GitHub OAuth in your Python Flask app](https://supabase.com/blog/oauth2-login-python-flask-apps)
+  - [Python data loading with Supabase](https://supabase.com/blog/loading-data-supabase-python)
 
-# NOTE: it just the the async version of supabase-py with more code examples here ,code is almost same as supabase-py
-
-## Status
-
-| Status | Stability    | Goal                                                                                                              |
-|--------|--------------|-------------------------------------------------------------------------------------------------------------------|
-| 🚧     | Alpha        | We are testing Supabase with a closed set of customers                                                            |
-| 🚧     | Public Alpha | Anyone can sign up over at [app.supabase.io](https://app.supabase.com). But go easy on us, there are a few kinks. |
-| ❌      | Public Beta  | Stable enough for most non-enterprise use-cases                                                                   |
-| ❌      | Public       | Production-ready                                                                                                  |
 
 ## Installation
 
-### PyPi Installation
+We recommend activating your virtual environment. For example, we like `poetry` and `conda`!
 
-To install the package for Python 3.7 and above:
+### PyPi installation
+
+Install the package (for > Python 3.7):
 
 ```bash
 # with pip
 pip install supabase-py-async
-
-# with poetry
+# with poetry (recommended)
 poetry add supabase-py-async
 ```
 
-### Local Installation
+### Local installation
 
-For local development, clone this repo and install in Development mode with `pip install -e`.
+You can also install locally after cloning this repo. Install Development mode with ``pip install -e``, which makes it so when you edit the source code the changes will be reflected in your python module.
 
-## What's new?
+## Usage
 
-### 2.2.0
-
-- followed the supabase-py 2.2.0
-- NOTE:!!!! we changed the way of to let the supabase_client to know who send the request by self.auth.set_session(
-  access_token,refresh_token) instead of pass auth_client in to operation func like self.table('your_table').select('*')
-  .execute()
-
-### 2.1.0
-
-- removed store client
-- followed the supabase-py 2.1.0
-
-### 2.0.5
-
-#### new functions
-
-- add auth_clients in AsyncClient which should be sent in operation functions like client.table,etc
-- add add_auth_clients function in AsyncClient which can add auth_clients in AsyncClient as the request is sign in or
-  sign up,etc
-- add update_auth_session function in AsyncClient which can update auth_client by access_token from the request
-
-#### new ideas
-
-- and we do not need to create a new client every time we want to do a operation,so i add auth_clients in AsyncClient
-  which should be sent in operation functions like client.table,etc
-
-#### my questions
-
-- i think we should add a new functions that can clean the auth_clients in AsyncClient schedulely,cause the auth_clients
-  may be too much and it may cause some problems
-
-## Async Usage
-
-It's usually best practice to set your api key environment variables in some way that version control doesn't track
-them, e.g don't put them in your python modules! Set the key and url for the supabase instance in the shell, or better
-yet, use a dotenv file. Heres how to set the variables in the shell.
+Set your Supabase environment variables in a dotenv file, or using the shell:
 
 ```bash
 export SUPABASE_URL="my-url-to-my-awesome-supabase-instance"
 export SUPABASE_KEY="my-supa-dupa-secret-supabase-api-key"
 ```
 
-This client is designed to be used asynchronously. Below are some examples on how to use it.
-
-### Initialize Supabase Client and Auth in request
+We can then read the keys in the python source code:
 
 ```python
-from fastapi import FastAPI, Depends, HTTPException, Header
-from pydantic import BaseModel
-from typing import Optional
+import os
 from supabase_py_async import create_client, AsyncClient
-from contextlib import asynccontextmanager
 
-app = FastAPI()
-
-SUPABASE_URL = "your_supabase_url"
-SUPABASE_KEY = "your_supabase_anon_key"
-
-supabase: Optional[AsyncClient] = None
-
-class UserLogin(BaseModel):
-    email: str
-    password: str
-
-@asynccontextmanager
-async def setup_supabase():
-    global supabase
-    supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
-    yield
-    # add some code that you wana run as the app shut down
-
-app = FastAPI(lifespan=setup_supabase)
-
-@app.post("/login")
-async def login(user: UserLogin):
-    response = await supabase.auth.sign_in_with_password(
-        email=user.email, password=user.password
-    )
-    if response.error:
-        raise HTTPException(status_code=400, detail=response.error.message)
-    return response.session
-
-async def get_current_user(authorization: Optional[str] = Header(None)):
-    if not authorization:
-        raise HTTPException(status_code=401, detail="Unauthorized")
-    tokens = authorization.split(" ")
-
-    if len(tokens) != 2:
-        raise HTTPException(status_code=401, detail="Invalid authorization header format")
-
-    access_token, refresh_token = tokens
-    try:
-        session = await supabase.auth.set_session(access_token=access_token, refresh_token=refresh_token)
-        return session
-    except Exception as e:
-        raise HTTPException(status_code=401, detail="Invalid token")
-
-@app.get("/protected")
-async def protected_route(session: dict = Depends(get_current_user)):
-    result = await supabase.table('your_table').select('*').execute()
-    return result.data
-
-@app.post("/refresh-token")
-async def refresh_token(refresh_token: str):
-    try:
-        new_session = await supabase.auth.refresh_session(refresh_token)
-        return new_session
-    except Exception as e:
-        raise HTTPException(status_code=401, detail="Could not refresh token")
-
-
+url: str = os.environ.get("SUPABASE_URL")
+key: str = os.environ.get("SUPABASE_KEY")
+supabase: Client = create_client(url, key)
 ```
 
-### Async Data Operations
+Use the supabase client to interface with your database.
+
+#### Authenticate
 
 ```python
-async def data_operations():
-  auth_response: AuthResponse = await self.auth.sign_in_with_password({"email": ur_email, "password": ur_password)
-  #  or other sign in methods    
-  # Insert
-  insert_data = await supabase.table("countries").insert({"name": "Germany"}).execute()
+from supabase import create_client, Client
 
-  # Select
-  select_data = await supabase.table("countries").select("*").eq("country", "IL").execute()
-
-  # Update
-  update_data = await supabase.table("countries").update(
-    {"country": "Indonesia", "capital_city": "Jakarta"}).eq("id", 1).execute()
-
-  # Delete
-  delete_data = await supabase.table("countries").delete().eq("id", 1).execute()
-
-  # note: if you wanna handle the different users,you should called  self.auth.set_session(access_token,refresh_token)
-  #  and then you can use the auth_clients in AsyncClient in the request that set_session is called
-  asyncio.run(data_operations())
+url: str = os.environ.get("SUPABASE_TEST_URL")
+key: str = os.environ.get("SUPABASE_TEST_KEY")
+supabase: Client = create_client(url, key)
+# Create a random user login email and password.
+random_email: str = "3hf82fijf92@supamail.com"
+random_password: str = "fqj13bnf2hiu23h"
+user = supabase.auth.sign_up({ "email": random_email, "password": random_password })
 ```
 
-<!-- Include more examples and documentation links -->
+#### Sign-in
 
-See [Supabase Docs](https://supabase.com/docs/guides/client-libraries) for a full list of examples.
+```python
+from supabase import create_client, Client
 
-## Contributions
-Welcome to the supabase-py-async package! 😊
+url: str = os.environ.get("SUPABASE_TEST_URL")
+key: str = os.environ.get("SUPABASE_TEST_KEY")
+supabase: Client = create_client(url, key)
+# Sign in using the user email and password.
+random_email: str = "3hf82fijf92@supamail.com"
+random_password: str = "fqj13bnf2hiu23h"
+user = supabase.auth.sign_in_with_password({ "email": random_email, "password": random_password })
+```
 
-Hello, fellow developers!
+#### Insert Data
 
-I'm excited to share that I've published an **asynchronous package for Supabase** designed to work smoothly with FastAPI, and it's now open for contributions! 🚀
+```python
+from supabase import create_client, Client
 
-This project is very close to my heart ❤️, cause my personal plan app is based on vue and fastapi so i need a async one，and hope it will benefit yours as well，and I believe that with your valuable contributions, we can make it even better. Whether it's improving the code, fixing bugs, writing documentation, or suggesting new features – all contributions are welcome.
+url: str = os.environ.get("SUPABASE_TEST_URL")
+key: str = os.environ.get("SUPABASE_TEST_KEY")
+supabase: Client = create_client(url, key)
+data = supabase.table("countries").insert({"name":"Germany"}).execute()
+assert len(data.data) > 0
+```
 
-If you're passionate about FastAPI, async programming in Python, or just want to lend a hand with a growing project, this is your invitation to join in. Let's collaborate to create something amazing that we're all proud of. 🤝
+#### Select Data
 
-### How to Contribute
-- **Fork the repository:** Start by forking the project to your GitHub account.
-- **Pick an issue:** Look for open issues that interest you or suggest new ones.
-- **Open a pull request:** After making your changes, open a pull request with a clear description of your improvements
+```python
+from supabase import create_client, Client
 
-### Stay Connected
-- **Join our community chat:** We have a Discord channel (https://discord.com/invite/QPysZkKT) where we discuss the project and collaborate.
-- **Stay updated:** Watch this repository to stay informed about new issues and updates.
+url: str = os.environ.get("SUPABASE_TEST_URL")
+key: str = os.environ.get("SUPABASE_TEST_KEY")
+supabase: Client = create_client(url, key)
+data = supabase.table("countries").select("*").eq("country", "IL").execute()
+# Assert we pulled real data.
+assert len(data.data) > 0
+```
 
-Contributing to open source is a rewarding way to learn, teach, and build experience. No matter your skill level, your contributions are invaluable to the project. 🌟
+#### Update Data
 
-Thank you for considering contributing to this project. Let's make it the best it can be, together!
+```python
+from supabase import create_client, Client
 
-Happy coding! 👨‍💻👩‍💻
+url: str = os.environ.get("SUPABASE_TEST_URL")
+key: str = os.environ.get("SUPABASE_TEST_KEY")
+supabase: Client = create_client(url, key)
+data = supabase.table("countries").update({"country": "Indonesia", "capital_city": "Jakarta"}).eq("id", 1).execute()
+```
 
-Atticus Zhou
+#### Update data with duplicate keys
+
+```python
+from supabase import create_client, Client
+
+url: str = os.environ.get("SUPABASE_TEST_URL")
+key: str = os.environ.get("SUPABASE_TEST_KEY")
+supabase: Client = create_client(url, key)
+
+country = {
+  "country": "United Kingdom",
+  "capital_city": "London" # this was missing when it was added
+}
+
+data = supabase.table("countries").upsert(country).execute()
+assert len(data.data) > 0
+```
+
+#### Delete Data
+
+```python
+from supabase import create_client, Client
+
+url: str = os.environ.get("SUPABASE_TEST_URL")
+key: str = os.environ.get("SUPABASE_TEST_KEY")
+supabase: Client = create_client(url, key)
+data = supabase.table("countries").delete().eq("id", 1).execute()
+```
+
+#### Call Edge Functions
+
+```python
+from supabase import create_client, Client
+
+url: str = os.environ.get("SUPABASE_TEST_URL")
+key: str = os.environ.get("SUPABASE_TEST_KEY")
+supabase: Client = create_client(url, key)
+
+def test_func():
+  try:
+    resp = supabase.functions.invoke("hello-world", invoke_options={'body':{}})
+    return resp
+  except (FunctionsRelayError, FunctionsHttpError) as exception:
+    err = exception.to_dict()
+    print(err.get("message"))
+```
+
+#### Download a file from Storage
+
+```python
+from supabase import create_client, Client
+
+url: str = os.environ.get("SUPABASE_TEST_URL")
+key: str = os.environ.get("SUPABASE_TEST_KEY")
+supabase: Client = create_client(url, key)
+
+bucket_name: str = "photos"
+
+data = supabase.storage.from_(bucket_name).download("photo1.png")
+```
+
+#### Upload a file
+
+```python
+from supabase import create_client, Client
+
+url: str = os.environ.get("SUPABASE_TEST_URL")
+key: str = os.environ.get("SUPABASE_TEST_KEY")
+supabase: Client = create_client(url, key)
+
+bucket_name: str = "photos"
+new_file = getUserFile()
+
+data = supabase.storage.from_(bucket_name).upload("/user1/profile.png", new_file)
+```
+
+#### Remove a file
+
+```python
+from supabase import create_client, Client
+
+url: str = os.environ.get("SUPABASE_TEST_URL")
+key: str = os.environ.get("SUPABASE_TEST_KEY")
+supabase: Client = create_client(url, key)
+
+bucket_name: str = "photos"
+
+data = supabase.storage.from_(bucket_name).remove(["old_photo.png", "image5.jpg"])
+```
+
+#### List all files
+
+```python
+from supabase import create_client, Client
+
+url: str = os.environ.get("SUPABASE_TEST_URL")
+key: str = os.environ.get("SUPABASE_TEST_KEY")
+supabase: Client = create_client(url, key)
+
+bucket_name: str = "charts"
+
+data = supabase.storage.from_(bucket_name).list()
+```
+
+#### Move and rename files
+
+```python
+from supabase import create_client, Client
+
+url: str = os.environ.get("SUPABASE_TEST_URL")
+key: str = os.environ.get("SUPABASE_TEST_KEY")
+supabase: Client = create_client(url, key)
+
+bucket_name: str = "charts"
+old_file_path: str = "generic/graph1.png"
+new_file_path: str = "important/revenue.png"
+
+data = supabase.storage.from_(bucket_name).move(old_file_path, new_file_path)
+```
+
+## Roadmap
+
+- [x] Wrap [Postgrest-py](https://github.com/supabase-community/postgrest-py/)
+  - [ ] Add remaining filters
+  - [ ] Add support for EXPLAIN
+  - [ ] Add proper error handling
+- [ ] Wrap [Realtime-py](https://github.com/supabase-community/realtime-py)
+    - [ ]  Integrate with Supabase-py
+    - [ ]  Support WALRUS
+    - [ ]  Support broadcast (to check if already supported)
+- [x] Wrap [auth-py](https://github.com/supabase-community/auth-py)
+    - [x] Remove references to GoTrue-js v1 and do a proper release
+    - [ ] Test and document common flows (e.g. sign in with OAuth, sign in with OTP)
+    - [ ] Add MFA methods and SSO methods
+    - [x] Add Proof Key for Code Exchange (PKCE) methods. Unlike the JS library, we do not currently plan to support Magic Link (PKCE). Please use the [token hash](https://supabase.com/docs/guides/auth/server-side/email-based-auth-with-pkce-flow-for-ssr#create-api-endpoint-for-handling-tokenhash) in tandem with `verifyOTP` instead.
+- [x] Wrap [storage-py](https://github.com/supabase-community/storage-py)
+    - [ ]  Support resumable uploads
+    - [x]  Setup testing environment
+    - [x]  Document how to properly upload different file types (e.g. jpeg/png and download it)
+- [x] Wrap [functions-py](https://github.com/supabase-community/functions-py)
+
+Overall Tasks:
+- [x] Add async support across the entire library
+- [ ] Add FastAPI helper library (external to supabase-py)
+- [ ] Add `django-supabase-postgrest` (external to supabase-py)
+
+## Contributing
+
+Contributing to the Python libraries are a great way to get involved with the Supabase community. Reach out to us on Discord if you want to get involved.
+
+### Running Tests
+
+Currently the test suites are in a state of flux. We are expanding our clients tests to ensure things are working, and for now can connect to this test instance, that is populated with the following table:
+
+<p align="center">
+  <img width="720" height="481" src="https://i.ibb.co/Bq7Kdty/db.png">
+</p>
+
+The above test database is a blank supabase instance that has populated the `countries` table with the built in countries script that can be found in the supabase UI. You can launch the test scripts and point to the above test database by running
+
+
+
+
