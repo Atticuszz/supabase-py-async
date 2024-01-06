@@ -51,7 +51,7 @@ jobs:
         with:
           ref: ${{ github.ref }}
           fetch-depth: 0
-          token: ${{ secrets.PYPI_API_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Python Semantic Release
         id: release
         uses: python-semantic-release/python-semantic-release@v8.0.0
@@ -68,4 +68,5 @@ jobs:
         uses: python-semantic-release/upload-to-gh-release@main
         if: steps.release.outputs.released == 'true'
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
