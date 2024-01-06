@@ -1,0 +1,62 @@
+exclude: '^.*\.(md|MD)$'  # 排除所有 Markdown 文件
+repos:
+    - repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v4.5.0
+      hooks:
+          - id: trailing-whitespace
+            # 删除行尾空格
+          - id: check-added-large-files
+            # 检查是否有大文件被错误地添加到git
+          - id: end-of-file-fixer
+            # 确保文件以一个空行结尾
+          - id: mixed-line-ending
+            # 统一文件的行结束符（例如，将CRLF转换为LF）
+            args: ["--fix=lf"]
+
+    - repo: https://github.com/pycqa/isort
+      rev: 5.13.2
+      hooks:
+          - id: isort
+            # 对Python的import语句进行排序和格式化
+            args:
+                [
+                    "--profile",
+                    "black",
+                    "--multi-line=3",
+                    "--trailing-comma",
+                    "--force-grid-wrap=0",
+                    "--use-parentheses",
+                    "--line-width=88",
+                ]
+
+    - repo: https://github.com/myint/autoflake.git
+      rev: v2.2.1
+      hooks:
+          - id: autoflake
+            # 移除未使用的导入和变量
+            args:
+                [
+                    "--in-place",
+                    "--remove-all-unused-imports",
+                    "--ignore-init-module-imports",
+                ]
+
+    - repo: https://github.com/psf/black
+      rev: "23.12.1"
+      hooks:
+          - id: black
+            # 自动格式化Python代码，符合PEP 8风格指南
+
+    - repo: https://github.com/asottile/pyupgrade
+      rev: v3.15.0
+      hooks:
+          - id: pyupgrade
+            # 将Python代码升级到新版本的Python语法
+            args: ["--py310-plus"]
+
+#    - repo: https://github.com/commitizen-tools/commitizen
+#      rev: v2.20.3  # 保持不变，因为在pyproject.toml中未指定
+#      hooks:
+#          - id: commitizen
+#            # 确保commit信息遵循Conventional Commits标准
+#            stages: [commit-msg]
