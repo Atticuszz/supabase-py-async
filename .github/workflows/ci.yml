@@ -60,7 +60,7 @@ jobs:
 
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
-        # NOTE: DO NOT wrap the conditional in ${{ }} as it will always evaluate to true.
+        # NOTE: DO NOT wrap the conditional in ${{ }} as ialways evaluate to true.
         if: steps.release.outputs.released == 'true'
 
       - name: Publish package distributions to GitHub Releases
