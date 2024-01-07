@@ -55,7 +55,7 @@ repos:
             args: ["--py310-plus"]
 
     - repo: https://github.com/commitizen-tools/commitizen
-      rev: ^3.13.0
+      rev: v2.20.3
       hooks:
           - id: commitizen
             # 确保commit信息遵循Conventional Commits标准
