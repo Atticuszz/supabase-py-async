@@ -4,7 +4,37 @@
 
 ## v0.0.0 (2024-01-07)
 
+### Chore
+
+* chore(release): bump version to v0.0.0 ([`4dbbe21`](https://github.com/Atticuszz/supabase-py-async/commit/4dbbe21afbc7f3db4ba711ad6641c348d62a4446))
+
 ### Unknown
+
+* release 2.3.1 ([`9d74d87`](https://github.com/Atticuszz/supabase-py-async/commit/9d74d879e02957f084e3f2dc8f5dbecdd0724649))
+
+* release 2.3.1 ([`e14c617`](https://github.com/Atticuszz/supabase-py-async/commit/e14c6174715027743d25400b9088f914c8587e03))
+
+* release 2.3.1 ([`f55a64c`](https://github.com/Atticuszz/supabase-py-async/commit/f55a64c3f9906d7ab0f40113bfbc0998fc9c3bbe))
+
+* release 2.3.1 ([`5f9175d`](https://github.com/Atticuszz/supabase-py-async/commit/5f9175db70e64a5d63bae0894a4fa95c5325d10f))
+
+* release 2.3.1 ([`6a96c4b`](https://github.com/Atticuszz/supabase-py-async/commit/6a96c4bffe48cf9887954a40c71efdfe6d9fcd9d))
+
+* Merge remote-tracking branch &#39;origin/main&#39; ([`1476d53`](https://github.com/Atticuszz/supabase-py-async/commit/1476d53dad44770a93c84ae34ff8a2a8c98e1ea2))
+
+* release 2.3.1 ([`8908493`](https://github.com/Atticuszz/supabase-py-async/commit/89084931bb18752b9b9fdbb26c9c0f5f402036e8))
+
+* Fix:Update pyproject.toml,release 2.3.1 ([`83ce5e1`](https://github.com/Atticuszz/supabase-py-async/commit/83ce5e1e099033c18490e4a41445b8d49eb31bfc))
+
+* Update __version__.py ([`c0ffcd7`](https://github.com/Atticuszz/supabase-py-async/commit/c0ffcd72e6ee668fe25b3e358045a1ee80451b06))
+
+* Update ci.yml ([`5108ba9`](https://github.com/Atticuszz/supabase-py-async/commit/5108ba9d1395b870fceeb842d02d3660566c972c))
+
+* Merge pull request #20 from Atticuszz/Atticuszz-patch-1
+
+Update ci.yml ([`09cb4ab`](https://github.com/Atticuszz/supabase-py-async/commit/09cb4aba3193484573d0bfb4c4288320f9bcb290))
+
+* Update ci.yml ([`1ce173a`](https://github.com/Atticuszz/supabase-py-async/commit/1ce173a2accccb416968eb056edbdb550ef074c8))
 
 * Update ci.yml ([`0bfa90a`](https://github.com/Atticuszz/supabase-py-async/commit/0bfa90abe4f186f4c1e4a3804b3a36e90a945d3a))
 
