@@ -2,9 +2,20 @@
 
 
 
-## v0.1.0 (2024-01-07)
+## v2.4.0 (2024-01-07)
+
+### Feature
+
+* feat: v2.3.1 followed supabase-py ([`479b05e`](https://github.com/Atticuszz/supabase-py-async/commit/479b05ead556a2b92e59975ca46e202d393babd9))
+
+* feat: v2.3.1 followed supabase-py ([`b297bba`](https://github.com/Atticuszz/supabase-py-async/commit/b297bbae8c141c431f17768fcef6a85c463861ec))
+
+
+## v2.3.0 (2024-01-07)
 
 ### Chore
+
+* chore(release): bump version to v0.1.0 ([`0cda9aa`](https://github.com/Atticuszz/supabase-py-async/commit/0cda9aa64f13641b2caadff274d23fb79a1d2def))
 
 * chore(release): bump version to v2.3.1 ([`a74522d`](https://github.com/Atticuszz/supabase-py-async/commit/a74522d97f14208812df0d68e67f46642a8864a9))
 
