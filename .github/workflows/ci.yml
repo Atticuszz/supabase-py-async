@@ -51,12 +51,12 @@ jobs:
         with:
           ref: ${{ github.ref }}
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.ATTICUS_PAT }}
       - name: Python Semantic Release
         id: release
         uses: python-semantic-release/python-semantic-release@v8.7.0
         with:
-          github_token: ${{ secrets.ATTICUS_PAT }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
