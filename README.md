@@ -49,15 +49,30 @@ export SUPABASE_URL="my-url-to-my-awesome-supabase-instance"
 export SUPABASE_KEY="my-supa-dupa-secret-supabase-api-key"
 ```
 
-We can then read the keys in the python source code:
+init the client in fastapi lifespan event
 
 ```python
 import os
-from supabase_py_async import create_client, AsyncClient
-
-url: str = os.environ.get("SUPABASE_URL")
-key: str = os.environ.get("SUPABASE_KEY")
-supabase: Client = create_client(url, key)
+from contextlib import asynccontextmanager
+from dotenv import load_dotenv
+from fastapi import FastAPI
+from supabase_py_async import create_client
+from supabase_py_async.lib.client_options import ClientOptions
+client = None
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """ life span events"""
+    identify_worker = None
+    try:
+        # start client
+        load_dotenv()
+        url: str = os.getenv("SUPABASE_URL")
+        key: str = os.getenv("SUPABASE_KEY")
+        client = await create_client(url, key, options=ClientOptions(
+            postgrest_client_timeout=10, storage_client_timeout=10))
+        yield
+    finally:
+        pass
 ```
 
 Use the supabase client to interface with your database.
@@ -65,108 +80,83 @@ Use the supabase client to interface with your database.
 #### Authenticate
 
 ```python
-from supabase import create_client, Client
-
-url: str = os.environ.get("SUPABASE_TEST_URL")
-key: str = os.environ.get("SUPABASE_TEST_KEY")
-supabase: Client = create_client(url, key)
-# Create a random user login email and password.
-random_email: str = "3hf82fijf92@supamail.com"
-random_password: str = "fqj13bnf2hiu23h"
-user = supabase.auth.sign_up({ "email": random_email, "password": random_password })
+async def authenticate(email: str, password: str):
+    """ authenticate user """
+     # Create a random user login email and password.
+    random_email: str = "3hf82fijf92@supamail.com"
+    random_password: str = "fqj13bnf2hiu23h"
+    user = await client.auth.sign_in(email=email, password=password)
 ```
 
 #### Sign-in
 
 ```python
-from supabase import create_client, Client
-
-url: str = os.environ.get("SUPABASE_TEST_URL")
-key: str = os.environ.get("SUPABASE_TEST_KEY")
-supabase: Client = create_client(url, key)
-# Sign in using the user email and password.
-random_email: str = "3hf82fijf92@supamail.com"
-random_password: str = "fqj13bnf2hiu23h"
-user = supabase.auth.sign_in_with_password({ "email": random_email, "password": random_password })
+async def sign_in(email: str, password: str):
+    """ sign in user """
+    # Sign in using the user email and password.
+    random_email: str = "3hf82fijf92@supamail.com"
+    random_password: str = "fqj13bnf2hiu23h"
+    user =  await client.auth.sign_in_with_password({ "email": random_email, "password": random_password })
 ```
 
 #### Insert Data
 
 ```python
-from supabase import create_client, Client
-
-url: str = os.environ.get("SUPABASE_TEST_URL")
-key: str = os.environ.get("SUPABASE_TEST_KEY")
-supabase: Client = create_client(url, key)
-data = supabase.table("countries").insert({"name":"Germany"}).execute()
-assert len(data.data) > 0
+async def insert_data():
+    """ insert data """
+    # Insert a new country into the 'countries' table.
+    data = await client.table("countries").insert({"name":"Germany"}).execute()
+    assert len(data.data) > 0
 ```
 
 #### Select Data
 
 ```python
-from supabase import create_client, Client
-
-url: str = os.environ.get("SUPABASE_TEST_URL")
-key: str = os.environ.get("SUPABASE_TEST_KEY")
-supabase: Client = create_client(url, key)
-data = supabase.table("countries").select("*").eq("country", "IL").execute()
-# Assert we pulled real data.
-assert len(data.data) > 0
+async def select_data():
+    """ select data """
+    # Select all countries from the 'countries' table.
+    data = await client.table("countries").select("*").execute()
+    assert len(data.data) > 0
 ```
 
 #### Update Data
 
 ```python
-from supabase import create_client, Client
-
-url: str = os.environ.get("SUPABASE_TEST_URL")
-key: str = os.environ.get("SUPABASE_TEST_KEY")
-supabase: Client = create_client(url, key)
-data = supabase.table("countries").update({"country": "Indonesia", "capital_city": "Jakarta"}).eq("id", 1).execute()
+async def update_data():
+    """ update data """
+    # Update the country with id of 1.
+    data = await client.table("countries").update({"country": "Indonesia", "capital_city": "Jakarta"}).eq("id", 1).execute()
+    assert len(data.data) > 0
 ```
+
 
 #### Update data with duplicate keys
 
 ```python
-from supabase import create_client, Client
-
-url: str = os.environ.get("SUPABASE_TEST_URL")
-key: str = os.environ.get("SUPABASE_TEST_KEY")
-supabase: Client = create_client(url, key)
-
-country = {
-  "country": "United Kingdom",
-  "capital_city": "London" # this was missing when it was added
-}
-
-data = supabase.table("countries").upsert(country).execute()
-assert len(data.data) > 0
+async def update_data_with_duplicate_keys():
+    """ update data with duplicate keys """
+    # Update the country with id of 1.
+    data = await client.table("countries").update({"country": "Indonesia", "capital_city": "Jakarta"}).eq("id", 1).execute()
 ```
 
 #### Delete Data
 
 ```python
-from supabase import create_client, Client
-
-url: str = os.environ.get("SUPABASE_TEST_URL")
-key: str = os.environ.get("SUPABASE_TEST_KEY")
-supabase: Client = create_client(url, key)
-data = supabase.table("countries").delete().eq("id", 1).execute()
+async def delete_data():
+    """ delete data """
+    # Delete the country with id of 1.
+    data = await client.table("countries").delete().eq("id", 1).execute()
 ```
+
 
 #### Call Edge Functions
 
 ```python
-from supabase import create_client, Client
 
-url: str = os.environ.get("SUPABASE_TEST_URL")
-key: str = os.environ.get("SUPABASE_TEST_KEY")
-supabase: Client = create_client(url, key)
 
-def test_func():
+async def test_func():
   try:
-    resp = supabase.functions.invoke("hello-world", invoke_options={'body':{}})
+    resp = await client.functions.invoke("hello-world", invoke_options={'body':{}})
     return resp
   except (FunctionsRelayError, FunctionsHttpError) as exception:
     err = exception.to_dict()
@@ -176,74 +166,60 @@ def test_func():
 #### Download a file from Storage
 
 ```python
-from supabase import create_client, Client
 
-url: str = os.environ.get("SUPABASE_TEST_URL")
-key: str = os.environ.get("SUPABASE_TEST_KEY")
-supabase: Client = create_client(url, key)
-
-bucket_name: str = "photos"
-
-data = supabase.storage.from_(bucket_name).download("photo1.png")
+async def download_file():
+    """ download file """
+    # Download a file from Storage.
+    bucket_name: str = "photos"
+    data = await client.storage.from_(bucket_name).download("photo1.png")
 ```
 
 #### Upload a file
 
 ```python
-from supabase import create_client, Client
-
-url: str = os.environ.get("SUPABASE_TEST_URL")
-key: str = os.environ.get("SUPABASE_TEST_KEY")
-supabase: Client = create_client(url, key)
-
-bucket_name: str = "photos"
-new_file = getUserFile()
-
-data = supabase.storage.from_(bucket_name).upload("/user1/profile.png", new_file)
+async def upload_file():
+    """ upload file """
+    # Upload a file to Storage.
+    bucket_name: str = "photos"
+    new_file = getUserFile()
+    data = await client.storage.from_(bucket_name).upload("/user1/profile.png", new_file)
 ```
+
 
 #### Remove a file
 
 ```python
-from supabase import create_client, Client
-
-url: str = os.environ.get("SUPABASE_TEST_URL")
-key: str = os.environ.get("SUPABASE_TEST_KEY")
-supabase: Client = create_client(url, key)
-
-bucket_name: str = "photos"
-
-data = supabase.storage.from_(bucket_name).remove(["old_photo.png", "image5.jpg"])
+async def remove_file():
+    """ remove file """
+    # Remove a file from Storage.
+    bucket_name: str = "photos"
+    data = await client.storage.from_(bucket_name).remove(["old_photo.png", "image5.jpg"])
 ```
+
 
 #### List all files
 
 ```python
-from supabase import create_client, Client
-
-url: str = os.environ.get("SUPABASE_TEST_URL")
-key: str = os.environ.get("SUPABASE_TEST_KEY")
-supabase: Client = create_client(url, key)
-
-bucket_name: str = "charts"
-
-data = supabase.storage.from_(bucket_name).list()
+async def list_files():
+    """ list files """
+    # List all files in Storage.
+    bucket_name: str = "photos"
+    data = await client.storage.from_(bucket_name).list()
 ```
+
 
 #### Move and rename files
 
 ```python
-from supabase import create_client, Client
-
-url: str = os.environ.get("SUPABASE_TEST_URL")
-key: str = os.environ.get("SUPABASE_TEST_KEY")
-supabase: Client = create_client(url, key)
-
-bucket_name: str = "charts"
-old_file_path: str = "generic/graph1.png"
-new_file_path: str = "important/revenue.png"
-
-data = supabase.storage.from_(bucket_name).move(old_file_path, new_file_path)
+async def move_files():
+    """ move files """
+    # Move and rename files in Storage.
+    
+    bucket_name: str = "charts"
+    old_file_path: str = "generic/graph1.png"
+    new_file_path: str = "important/revenue.png"
+    
+    data = await client.storage.from_(bucket_name).move(old_file_path, new_file_path)
 ```
 
 ## Roadmap
@@ -276,15 +252,6 @@ Overall Tasks:
 
 Contributing to the Python libraries are a great way to get involved with the Supabase community. Reach out to us on Discord if you want to get involved.
 
-### Running Tests
-
-Currently the test suites are in a state of flux. We are expanding our clients tests to ensure things are working, and for now can connect to this test instance, that is populated with the following table:
-
-<p align="center">
-  <img width="720" height="481" src="https://i.ibb.co/Bq7Kdty/db.png">
-</p>
-
-The above test database is a blank supabase instance that has populated the `countries` table with the built in countries script that can be found in the supabase UI. You can launch the test scripts and point to the above test database by running
 
 
 
