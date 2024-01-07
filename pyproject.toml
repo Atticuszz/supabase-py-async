@@ -43,7 +43,7 @@ build_command = "curl -sSL https://install.python-poetry.org | python - --previe
 branch = "main"
 upload_to_vcs_release = true
 commit_message = "chore(release): bump version to v{version}"
-
+changelog_components = "semantic_release.changelog.changelog_headers,semantic_release.changelog.compare_url"
 
 [build-system]
 requires = ["poetry-core"]
