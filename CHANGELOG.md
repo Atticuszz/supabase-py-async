@@ -2,9 +2,34 @@
 
 
 
+## v0.1.0 (2024-01-07)
+
+### Chore
+
+* chore(release): bump version to v2.3.1 ([`a74522d`](https://github.com/Atticuszz/supabase-py-async/commit/a74522d97f14208812df0d68e67f46642a8864a9))
+
+* chore(release): bump version to v2.3.1 ([`681fb64`](https://github.com/Atticuszz/supabase-py-async/commit/681fb64f815e94326e04faf989a20197985b5973))
+
+* chore(release): bump version to v2.3.1 ([`df5654f`](https://github.com/Atticuszz/supabase-py-async/commit/df5654f1e9633dcc0103619ee983e208ce196f2a))
+
+### Feature
+
+* feat: v2.3.1 followed supabase-py ([`3833cd0`](https://github.com/Atticuszz/supabase-py-async/commit/3833cd065b873676f97c6f2ba92371839defc408))
+
+### Unknown
+
+* release 2.3.1 ([`c3ea8fa`](https://github.com/Atticuszz/supabase-py-async/commit/c3ea8fab5349c597aad8954b5d3dacaf8300896f))
+
+* Merge remote-tracking branch &#39;origin/main&#39; ([`e63f581`](https://github.com/Atticuszz/supabase-py-async/commit/e63f5819739fd2761d8a524eca763230a371ae70))
+
+* release 2.3.1 ([`ae2c1d0`](https://github.com/Atticuszz/supabase-py-async/commit/ae2c1d0aa0990ecfd9f62ef48f2446fd08d0afe6))
+
+
 ## v0.0.0 (2024-01-07)
 
 ### Chore
+
+* chore(release): bump version to v0.0.0 ([`cc075eb`](https://github.com/Atticuszz/supabase-py-async/commit/cc075eb93617a3bae2e34499a53d83aad38f81dc))
 
 * chore(release): bump version to v0.0.0 ([`4dbbe21`](https://github.com/Atticuszz/supabase-py-async/commit/4dbbe21afbc7f3db4ba711ad6641c348d62a4446))
 
