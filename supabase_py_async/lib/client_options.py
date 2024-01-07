@@ -6,8 +6,9 @@ from aiohttp import ClientTimeout as Timeout
 from gotrue import AsyncMemoryStorage, AsyncSupportedStorage, AuthFlowType
 from postgrest.constants import DEFAULT_POSTGREST_CLIENT_TIMEOUT
 from storage3.constants import DEFAULT_TIMEOUT as DEFAULT_STORAGE_CLIENT_TIMEOUT
+from supabase import __version__
 
-from .. import DEFAULT_HEADERS
+DEFAULT_HEADERS = {"X-Client-Info": f"supabase-py/{__version__}"}
 
 
 @dataclass
