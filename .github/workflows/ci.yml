@@ -62,7 +62,8 @@ jobs:
         uses: pypa/gh-action-pypi-publish@release/v1
         # NOTE: DO NOT wrap the conditional in ${{ }} as ialways evaluate to true.
         if: steps.release.outputs.released == 'true'
-
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
       - name: Publish package distributions to GitHub Releases
         uses: python-semantic-release/upload-to-gh-release@main
         if: steps.release.outputs.released == 'true'
