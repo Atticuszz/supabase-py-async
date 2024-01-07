@@ -54,9 +54,9 @@ repos:
             # 将Python代码升级到新版本的Python语法
             args: ["--py310-plus"]
 
-#    - repo: https://github.com/commitizen-tools/commitizen
-#      rev: v2.20.3  # 保持不变，因为在pyproject.toml中未指定
-#      hooks:
-#          - id: commitizen
-#            # 确保commit信息遵循Conventional Commits标准
-#            stages: [commit-msg]
+    - repo: https://github.com/commitizen-tools/commitizen
+      rev: ^3.13.0
+      hooks:
+          - id: commitizen
+            # 确保commit信息遵循Conventional Commits标准
+            stages: [commit-msg]
