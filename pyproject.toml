@@ -17,6 +17,7 @@ storage3 = ">=0.6.1,<0.8.0"
 realtime = "^1.0.0"
 supafunc = "0.3.3"
 aiohttp = "^3.9.0"
+commitizen = "^3.13.0"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -31,6 +32,7 @@ black = "^23.12.1"
 python-semantic-release = "^8.7.0"
 pre-commit = "^3.6.0"
 pytest-cov = "^4.1.0"
+
 
 
 [tool.poetry.scripts]
