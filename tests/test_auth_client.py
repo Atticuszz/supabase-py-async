@@ -14,8 +14,8 @@ class TestAuth(TestBaseClient):
         assert rsp.session.user is not None, "user is None"
         name = self.fake_data.name()
         user_attr = UserAttributes(data={"name": name})
-        await self.client.auth.update_user(user_attr)
-        user_r = await self.client.auth.get_user(jwt=rsp.session.access_token)
+        # await self.client.auth.get_user(jwt=rsp.session.access_token)
+        user_r = await self.client.auth.update_user(user_attr)
         assert user_r.user.user_metadata["name"] == name
 
     @pytest.mark.asyncio
