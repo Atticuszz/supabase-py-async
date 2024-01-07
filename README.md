@@ -12,7 +12,7 @@
 [![Contributors](https://img.shields.io/github/contributors/Atticuszz/supabase-py-async)](https://github.com/Atticuszz/supabase-py-async/graphs/contributors)
 [![Code Size](https://img.shields.io/github/languages/code-size/Atticuszz/supabase-py-async)](https://github.com/Atticuszz/supabase-py-async)
 
-async-part of supabase-py Python client for [Supabase](https://supabase.com)
+async-part of supabase-py Python client for [Supabase-py](https://github.com/supabase-community/supabase-py)
 
 - Documentation: [supabase.com/docs](https://supabase.com/docs/reference/python/introduction)
 - Usage:
