@@ -6,6 +6,8 @@
 
 ### Chore
 
+* chore(release): bump version to v2.4.0 ([`6ff4f9b`](https://github.com/Atticuszz/supabase-py-async/commit/6ff4f9b499f9c13e5139b37a8037ff6e47b934d8))
+
 * chore(release): bump version to v2.4.1 ([`c9add14`](https://github.com/Atticuszz/supabase-py-async/commit/c9add14904dfd6f4cdae244a2ce752c1b9555e90))
 
 * chore(release): bump version to v2.4.0 ([`b1e6699`](https://github.com/Atticuszz/supabase-py-async/commit/b1e66991b77ca7271735822dd72f4fed0fffa758))
@@ -19,6 +21,8 @@
 * feat: v2.3.1 followed supabase-py ([`b297bba`](https://github.com/Atticuszz/supabase-py-async/commit/b297bbae8c141c431f17768fcef6a85c463861ec))
 
 ### Fix
+
+* fix: version ([`ed66f3e`](https://github.com/Atticuszz/supabase-py-async/commit/ed66f3e784a0fb4c7b75ff00841ca10e44213b17))
 
 * fix: version ([`dfefcde`](https://github.com/Atticuszz/supabase-py-async/commit/dfefcded666a6935254c195103fe57ec5dc7b89a))
 
