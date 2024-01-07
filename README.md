@@ -16,7 +16,7 @@ async-part of supabase-py Python client for [Supabase-py](https://github.com/sup
 
 - Documentation: [supabase.com/docs](https://supabase.com/docs/reference/python/introduction)
 - Usage:
-  - [Supabase with Python fastapi app](https://github.com/Atticuszz/fastapi_supabase_template)
+  - [Supabase with Python ⚡fastapi⚡ app](https://github.com/Atticuszz/fastapi_supabase_template)
   - [GitHub OAuth in your Python Flask app](https://supabase.com/blog/oauth2-login-python-flask-apps)
   - [Python data loading with Supabase](https://supabase.com/blog/loading-data-supabase-python)
 
