@@ -2,26 +2,11 @@
 
 
 
-## v2.4.1 (2024-01-07)
-
-### Fix
-
-* fix: version ([`c51c17a`](https://github.com/Atticuszz/supabase-py-async/commit/c51c17a9f93814fe17b525a62fa00f11073cdb2a))
-
-### Unknown
-
-* update README.md ([`69f6ad9`](https://github.com/Atticuszz/supabase-py-async/commit/69f6ad9df35ddff0dc87dda93561cb2857eda61b))
-
-* update README.md ([`817d450`](https://github.com/Atticuszz/supabase-py-async/commit/817d450e772d46b57342b668cbc4084c5b3b933c))
-
-* Merge remote-tracking branch &#39;origin/main&#39; ([`536078e`](https://github.com/Atticuszz/supabase-py-async/commit/536078e65b6078beb3da6f0be2fdf164a8087a2a))
-
-* update README.md ([`8b54ce0`](https://github.com/Atticuszz/supabase-py-async/commit/8b54ce06dedf9c8fe91e82ed80a7c1830c9b1025))
-
-
 ## v2.4.0 (2024-01-07)
 
 ### Chore
+
+* chore(release): bump version to v2.4.1 ([`c9add14`](https://github.com/Atticuszz/supabase-py-async/commit/c9add14904dfd6f4cdae244a2ce752c1b9555e90))
 
 * chore(release): bump version to v2.4.0 ([`b1e6699`](https://github.com/Atticuszz/supabase-py-async/commit/b1e66991b77ca7271735822dd72f4fed0fffa758))
 
@@ -35,11 +20,23 @@
 
 ### Fix
 
+* fix: version ([`dfefcde`](https://github.com/Atticuszz/supabase-py-async/commit/dfefcded666a6935254c195103fe57ec5dc7b89a))
+
+* fix: version ([`c51c17a`](https://github.com/Atticuszz/supabase-py-async/commit/c51c17a9f93814fe17b525a62fa00f11073cdb2a))
+
 * fix: v2.3.1 followed supabase-py ([`98900b2`](https://github.com/Atticuszz/supabase-py-async/commit/98900b25e648c837a13c60cffb374d5170207f60))
 
 * fix: v2.3.1 followed supabase-py ([`bb16be9`](https://github.com/Atticuszz/supabase-py-async/commit/bb16be969435bf8ea78e9c16465cf49b89004040))
 
 ### Unknown
+
+* update README.md ([`69f6ad9`](https://github.com/Atticuszz/supabase-py-async/commit/69f6ad9df35ddff0dc87dda93561cb2857eda61b))
+
+* update README.md ([`817d450`](https://github.com/Atticuszz/supabase-py-async/commit/817d450e772d46b57342b668cbc4084c5b3b933c))
+
+* Merge remote-tracking branch &#39;origin/main&#39; ([`536078e`](https://github.com/Atticuszz/supabase-py-async/commit/536078e65b6078beb3da6f0be2fdf164a8087a2a))
+
+* update README.md ([`8b54ce0`](https://github.com/Atticuszz/supabase-py-async/commit/8b54ce06dedf9c8fe91e82ed80a7c1830c9b1025))
 
 * Merge remote-tracking branch &#39;origin/main&#39; ([`43684a1`](https://github.com/Atticuszz/supabase-py-async/commit/43684a1153fba9882f36130b50c8c9a5efa992de))
 
