@@ -2,9 +2,56 @@
 
 
 
+## v2.4.1 (2024-01-12)
+
+### Chore
+
+* chore: update test_client.py and TestPostgrestClient.test_insert ([`b397d02`](https://github.com/Atticuszz/supabase-py-async/commit/b397d021297787cff5a86264a0b68a93a5adf097))
+
+### Fix
+
+* fix: add correct token to new requests when a user is signed in and 
+
+main ([`b38ebe5`](https://github.com/Atticuszz/supabase-py-async/commit/b38ebe582bc0a68f8910623c263d8da21c328fed))
+
+* fix: add correct token to new requests when a user is signed in ([`45b8c44`](https://github.com/Atticuszz/supabase-py-async/commit/45b8c44d0a08d4bfc12c76cadb29c0dd3904fa59))
+
+### Unknown
+
+* Merge pull request #26 from Atticuszz/release
+
+fix: add correct token to new requests when a user is signed in and ([`a1b0bff`](https://github.com/Atticuszz/supabase-py-async/commit/a1b0bff9a499528e6a74bbf3c653f62053b506ad))
+
+* Merge remote-tracking branch &#39;origin/main&#39; ([`8de1acf`](https://github.com/Atticuszz/supabase-py-async/commit/8de1acf154f244638e253b275fe465b9dc89c9ab))
+
+* Merge pull request #21 from Atticuszz/dependabot/pip/main/faker-22.1.0
+
+Bump faker from 22.0.0 to 22.1.0 ([`52f0d41`](https://github.com/Atticuszz/supabase-py-async/commit/52f0d413acae912cfa4b225192d0a34a8405fc60))
+
+* Bump faker from 22.0.0 to 22.1.0
+
+Bumps [faker](https://github.com/joke2k/faker) from 22.0.0 to 22.1.0.
+- [Release notes](https://github.com/joke2k/faker/releases)
+- [Changelog](https://github.com/joke2k/faker/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/joke2k/faker/compare/v22.0.0...v22.1.0)
+
+---
+updated-dependencies:
+- dependency-name: faker
+  dependency-type: direct:development
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`d4efae5`](https://github.com/Atticuszz/supabase-py-async/commit/d4efae51e9f10b5ff8f0b02bf64b26443292b392))
+
+* update typehint ([`94e200b`](https://github.com/Atticuszz/supabase-py-async/commit/94e200bb38e89a4b6ccc450133fe69ff31e76d78))
+
+
 ## v2.4.0 (2024-01-07)
 
 ### Chore
+
+* chore(release): bump version to v2.4.0 ([`5dee760`](https://github.com/Atticuszz/supabase-py-async/commit/5dee760b39d472d6f6b02bf41cd297c5baa64ef9))
 
 * chore(release): bump version to v2.4.0 ([`6ff4f9b`](https://github.com/Atticuszz/supabase-py-async/commit/6ff4f9b499f9c13e5139b37a8037ff6e47b934d8))
 
