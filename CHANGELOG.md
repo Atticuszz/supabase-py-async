@@ -2,9 +2,45 @@
 
 
 
+## v2.4.2 (2024-01-12)
+
+### Chore
+
+* chore: update version to 2.4.3 ([`b1ef0c4`](https://github.com/Atticuszz/supabase-py-async/commit/b1ef0c45ee5c291b9dbd07737a8d97284c3be254))
+
+* chore: update .pre-commit-config.yaml
+
+
+Merge pull request #28 from Atticuszz/release ([`0599e71`](https://github.com/Atticuszz/supabase-py-async/commit/0599e7157a8f9035b4188320b522d82b7684cf83))
+
+* chore: update version to 2.4.2 and .pre-commit-config.yaml ([`fa2141d`](https://github.com/Atticuszz/supabase-py-async/commit/fa2141d49f9b5482f3f14b47f0be6766a2a2309a))
+
+* chore: update version to 2.4.2 ([`36c3381`](https://github.com/Atticuszz/supabase-py-async/commit/36c3381281a03db32647225f22ed7d97d9d07356))
+
+### Fix
+
+* fix: update version to 2.4.2 ([`4306b21`](https://github.com/Atticuszz/supabase-py-async/commit/4306b214107ac703615773eb1b254ea990624b05))
+
+### Unknown
+
+* Merge pull request #30 from Atticuszz/release
+
+fix: update version to 2.4.2 ([`a5b1c4b`](https://github.com/Atticuszz/supabase-py-async/commit/a5b1c4b5eeb9766acb9777b77f9fa0c1a637f6b6))
+
+* Merge pull request #29 from Atticuszz/release
+
+chore: update to 2.4.3 ([`7e1aa93`](https://github.com/Atticuszz/supabase-py-async/commit/7e1aa93d8944e501387dd818962e972d7fbe7bea))
+
+* Merge pull request #27 from Atticuszz/release
+
+release ([`52a3e85`](https://github.com/Atticuszz/supabase-py-async/commit/52a3e850249f164fc46707d250bca561d00d9661))
+
+
 ## v2.4.1 (2024-01-12)
 
 ### Chore
+
+* chore(release): bump version to v2.4.1 ([`a4c24c8`](https://github.com/Atticuszz/supabase-py-async/commit/a4c24c85337cadabf943922056b0f0d48b85d431))
 
 * chore: update test_client.py and TestPostgrestClient.test_insert ([`b397d02`](https://github.com/Atticuszz/supabase-py-async/commit/b397d021297787cff5a86264a0b68a93a5adf097))
 
