@@ -20,10 +20,10 @@ class TestPostgrestClient(TestBaseClient):
         text = self.fake_data.text()
         api_rsp: APIResponse = (
             await self.client.table("test_table")
-            .insert([{"user_id": rsp.session.user.id, "text": text}])
+            .insert([{"user_id": rsp.session.user.id, "test_data": text}])
             .execute()
         )
         assert api_rsp.data[0]["user_id"] == rsp.session.user.id, "user_id is not equal"
-        assert api_rsp.data[0]["text"] == text, "text is not equal"
+        assert api_rsp.data[0]["test_data"] == text, "text is not equal"
 
         # FIXME: not work for rls of insert bu authed user, {'code': '42501', 'details': None, 'hint': None, 'message': 'new row violates row-level security policy for table "test_table"'}

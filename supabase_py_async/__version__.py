@@ -5,4 +5,4 @@
 @Date Created : 07/01/2024
 @Description  :
 """
-__version__ = "2.3.1"
+__version__ = "2.3.3"
