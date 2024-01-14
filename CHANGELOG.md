@@ -2,9 +2,18 @@
 
 
 
+## v2.5.0 (2024-01-14)
+
+### Feature
+
+* feat: add optional access_token to creat_client ([`bd7956c`](https://github.com/Atticuszz/supabase-py-async/commit/bd7956caa9cbd8ae0d251d73a27c2627b840cf0b))
+
+
 ## v2.4.2 (2024-01-12)
 
 ### Chore
+
+* chore(release): bump version to v2.4.2 ([`8f4f9ff`](https://github.com/Atticuszz/supabase-py-async/commit/8f4f9ff77824938b9c8d91ac2aa69141e3ddefe4))
 
 * chore: update version to 2.4.3 ([`b1ef0c4`](https://github.com/Atticuszz/supabase-py-async/commit/b1ef0c45ee5c291b9dbd07737a8d97284c3be254))
 
