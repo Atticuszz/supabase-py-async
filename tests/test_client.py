@@ -13,4 +13,4 @@ async def test_incorrect_values_dont_instantiate_client(url: Any, key: Any) -> N
     """Ensure we can't instantiate client with invalid values."""
     from supabase_py_async import AsyncClient, create_client
 
-    _: AsyncClient = await create_client(url, key)
+    _: AsyncClient = create_client(url, key)
