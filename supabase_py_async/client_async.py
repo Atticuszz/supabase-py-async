@@ -3,8 +3,11 @@ from typing import Any
 
 from gotrue.types import AuthChangeEvent, Session
 from httpx import Timeout
-from postgrest import AsyncPostgrestClient, AsyncRequestBuilder
-from postgrest._async.request_builder import AsyncRPCFilterRequestBuilder
+from postgrest import (
+    AsyncPostgrestClient,
+    AsyncRequestBuilder,
+    AsyncRPCFilterRequestBuilder,
+)
 from postgrest.constants import DEFAULT_POSTGREST_CLIENT_TIMEOUT
 from storage3 import AsyncStorageClient
 from storage3.constants import DEFAULT_TIMEOUT as DEFAULT_STORAGE_CLIENT_TIMEOUT
@@ -268,7 +271,7 @@ async def create_client(
     >>>
     >>> url: str = os.environ.get("SUPABASE_TEST_URL")
     >>> key: str = os.environ.get("SUPABASE_TEST_KEY")
-    >>> supabase: AsyncClient = create_client(url, key)
+    >>> supabase: AsyncClient = await create_client(url, key)
 
     Returns
     -------
