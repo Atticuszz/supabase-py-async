@@ -259,6 +259,8 @@ async def create_client(
         The URL to the Supabase instance that should be connected to.
     supabase_key: str
         The API key to the Supabase instance that should be connected to.
+    access_token: str
+        The access token to the authenticated user.
     **options
         Any extra settings to be optionally specified - also see the
         `DEFAULT_OPTIONS` dict.

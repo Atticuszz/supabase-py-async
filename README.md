@@ -27,7 +27,7 @@ We recommend activating your virtual environment. For example, we like `poetry` 
 
 ### PyPi installation
 
-Install the package (for > Python 3.9):
+Install the package (for > Python 3.10):
 
 ```bash
 # with pip
@@ -40,8 +40,15 @@ poetry add supabase-py-async
 
 You can also install locally after cloning this repo. Install Development mode with ``pip install -e``, which makes it so when you edit the source code the changes will be reflected in your python module.
 
-## Usage
+## differences
+what's different from [supabase-py](https://github.com/supabase-community/supabase-py)?
+1. a optional of `access_token: str | None = None,` key word argument in `create_client` function, which is used to set the `Authorization` header in the request.
+2. more [tests](./tests) on crud operations and auth operations.
 
+more tutorials in
+- [Supabase with Python ⚡fastapi⚡ app](https://github.com/Atticuszz/fastapi_supabase_template)
+
+## Usage
 Set your Supabase environment variables in a dotenv file, or using the shell:
 
 ```bash
