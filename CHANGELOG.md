@@ -2,7 +2,320 @@
 
 
 
+## v2.5.1 (2024-02-02)
+
+### Chore
+
+* chore(deps): bump commitizen from 3.13.0 to 3.14.0
+
+Bumps [commitizen](https://github.com/commitizen-tools/commitizen) from 3.13.0 to 3.14.0.
+- [Release notes](https://github.com/commitizen-tools/commitizen/releases)
+- [Changelog](https://github.com/commitizen-tools/commitizen/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/commitizen-tools/commitizen/compare/v3.13.0...v3.14.0)
+
+---
+updated-dependencies:
+- dependency-name: commitizen
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`41ad900`](https://github.com/Atticuszz/supabase-py-async/commit/41ad900366db644188ece1f2f27921f78728b3e2))
+
+* chore(deps): bump aiohttp from 3.9.2 to 3.9.3
+
+Bumps [aiohttp](https://github.com/aio-libs/aiohttp) from 3.9.2 to 3.9.3.
+- [Release notes](https://github.com/aio-libs/aiohttp/releases)
+- [Changelog](https://github.com/aio-libs/aiohttp/blob/master/CHANGES.rst)
+- [Commits](https://github.com/aio-libs/aiohttp/compare/v3.9.2...v3.9.3)
+
+---
+updated-dependencies:
+- dependency-name: aiohttp
+  dependency-type: direct:production
+  update-type: version-update:semver-patch
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`2d70cf1`](https://github.com/Atticuszz/supabase-py-async/commit/2d70cf197edb31cb48486018473f8bb95538b54b))
+
+* chore(deps-dev): bump faker from 22.5.1 to 22.6.0
+
+Bumps [faker](https://github.com/joke2k/faker) from 22.5.1 to 22.6.0.
+- [Release notes](https://github.com/joke2k/faker/releases)
+- [Changelog](https://github.com/joke2k/faker/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/joke2k/faker/compare/v22.5.1...v22.6.0)
+
+---
+updated-dependencies:
+- dependency-name: faker
+  dependency-type: direct:development
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`05e9837`](https://github.com/Atticuszz/supabase-py-async/commit/05e9837bb5ecf27bc520b2b9acd7864f75ba7832))
+
+* chore(deps): bump aiohttp from 3.9.1 to 3.9.2
+
+Bumps [aiohttp](https://github.com/aio-libs/aiohttp) from 3.9.1 to 3.9.2.
+- [Release notes](https://github.com/aio-libs/aiohttp/releases)
+- [Changelog](https://github.com/aio-libs/aiohttp/blob/master/CHANGES.rst)
+- [Commits](https://github.com/aio-libs/aiohttp/compare/v3.9.1...v3.9.2)
+
+---
+updated-dependencies:
+- dependency-name: aiohttp
+  dependency-type: direct:production
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`b5230ed`](https://github.com/Atticuszz/supabase-py-async/commit/b5230edb8f9c4042847914123723dddc040d11d8))
+
+* chore(deps): bump aiohttp from 3.9.1 to 3.9.2
+
+Bumps [aiohttp](https://github.com/aio-libs/aiohttp) from 3.9.1 to 3.9.2.
+- [Release notes](https://github.com/aio-libs/aiohttp/releases)
+- [Changelog](https://github.com/aio-libs/aiohttp/blob/master/CHANGES.rst)
+- [Commits](https://github.com/aio-libs/aiohttp/compare/v3.9.1...v3.9.2)
+
+---
+updated-dependencies:
+- dependency-name: aiohttp
+  dependency-type: direct:production
+  update-type: version-update:semver-patch
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`e12f61d`](https://github.com/Atticuszz/supabase-py-async/commit/e12f61da6e2d4fb806ed3a8146559d2811b3ca0e))
+
+* chore(deps-dev): bump black from 24.1.0 to 24.1.1
+
+Bumps [black](https://github.com/psf/black) from 24.1.0 to 24.1.1.
+- [Release notes](https://github.com/psf/black/releases)
+- [Changelog](https://github.com/psf/black/blob/main/CHANGES.md)
+- [Commits](https://github.com/psf/black/compare/24.1.0...24.1.1)
+
+---
+updated-dependencies:
+- dependency-name: black
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`7399ecf`](https://github.com/Atticuszz/supabase-py-async/commit/7399ecf0d0d6735bba12a271b00cca15df2680f4))
+
+* chore(deps-dev): bump pytest-asyncio from 0.23.3 to 0.23.4
+
+Bumps [pytest-asyncio](https://github.com/pytest-dev/pytest-asyncio) from 0.23.3 to 0.23.4.
+- [Release notes](https://github.com/pytest-dev/pytest-asyncio/releases)
+- [Commits](https://github.com/pytest-dev/pytest-asyncio/compare/v0.23.3...v0.23.4)
+
+---
+updated-dependencies:
+- dependency-name: pytest-asyncio
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`cf1e064`](https://github.com/Atticuszz/supabase-py-async/commit/cf1e06473418b4731f05f08e56cf36b0e4328e9e))
+
+* chore(deps-dev): bump black from 23.12.1 to 24.1.0
+
+Bumps [black](https://github.com/psf/black) from 23.12.1 to 24.1.0.
+- [Release notes](https://github.com/psf/black/releases)
+- [Changelog](https://github.com/psf/black/blob/main/CHANGES.md)
+- [Commits](https://github.com/psf/black/compare/23.12.1...24.1.0)
+
+---
+updated-dependencies:
+- dependency-name: black
+  dependency-type: direct:development
+  update-type: version-update:semver-major
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`1cb449e`](https://github.com/Atticuszz/supabase-py-async/commit/1cb449e229b04fccd096df44db42526c21da33f6))
+
+* chore(deps-dev): bump faker from 22.5.0 to 22.5.1
+
+Bumps [faker](https://github.com/joke2k/faker) from 22.5.0 to 22.5.1.
+- [Release notes](https://github.com/joke2k/faker/releases)
+- [Changelog](https://github.com/joke2k/faker/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/joke2k/faker/compare/v22.5.0...v22.5.1)
+
+---
+updated-dependencies:
+- dependency-name: faker
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`d16e599`](https://github.com/Atticuszz/supabase-py-async/commit/d16e59925573d536e738ed9bacc715dafd29a099))
+
+* chore: update README.md and deps ([`fc7ac4f`](https://github.com/Atticuszz/supabase-py-async/commit/fc7ac4fbd71a563680bc46e14cf496ae657c2a32))
+
+* chore(deps-dev): bump faker from 22.2.0 to 22.5.0
+
+Bumps [faker](https://github.com/joke2k/faker) from 22.2.0 to 22.5.0.
+- [Release notes](https://github.com/joke2k/faker/releases)
+- [Changelog](https://github.com/joke2k/faker/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/joke2k/faker/compare/v22.2.0...v22.5.0)
+
+---
+updated-dependencies:
+- dependency-name: faker
+  dependency-type: direct:development
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`69c959c`](https://github.com/Atticuszz/supabase-py-async/commit/69c959cf151fbe5dc9376c8c0b34d78acd11818f))
+
+* chore(deps): bump postgrest from 0.14.0 to 0.15.0
+
+Bumps [postgrest](https://github.com/supabase-community/postgrest-py) from 0.14.0 to 0.15.0.
+- [Release notes](https://github.com/supabase-community/postgrest-py/releases)
+- [Changelog](https://github.com/supabase-community/postgrest-py/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/supabase-community/postgrest-py/compare/v0.14.0...v0.15.0)
+
+---
+updated-dependencies:
+- dependency-name: postgrest
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`c6a5920`](https://github.com/Atticuszz/supabase-py-async/commit/c6a592037f3b0d045263e53338e8d9618b6c9a8b))
+
+* chore(deps): bump postgrest from 0.13.2 to 0.14.0
+
+Bumps [postgrest](https://github.com/supabase-community/postgrest-py) from 0.13.2 to 0.14.0.
+- [Release notes](https://github.com/supabase-community/postgrest-py/releases)
+- [Changelog](https://github.com/supabase-community/postgrest-py/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/supabase-community/postgrest-py/compare/v0.13.2...v0.14.0)
+
+---
+updated-dependencies:
+- dependency-name: postgrest
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`f4180c3`](https://github.com/Atticuszz/supabase-py-async/commit/f4180c35ababd3d1e95c2e1e0f61363fcf859103))
+
+* chore(release): bump version to v2.5.0 ([`16cf198`](https://github.com/Atticuszz/supabase-py-async/commit/16cf198fb4416d46f27d60064545087abf4ffe74))
+
+* chore: update import ([`422037b`](https://github.com/Atticuszz/supabase-py-async/commit/422037b09121ea91d24e7081328c852ea33013fa))
+
+* chore(deps-dev): bump faker from 22.2.0 to 22.5.0
+
+Bumps [faker](https://github.com/joke2k/faker) from 22.2.0 to 22.5.0.
+- [Release notes](https://github.com/joke2k/faker/releases)
+- [Changelog](https://github.com/joke2k/faker/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/joke2k/faker/compare/v22.2.0...v22.5.0)
+
+---
+updated-dependencies:
+- dependency-name: faker
+  dependency-type: direct:development
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`c9d88f6`](https://github.com/Atticuszz/supabase-py-async/commit/c9d88f64fa1cfe99458268f42b695581c4d4609c))
+
+* chore(deps): bump postgrest from 0.14.0 to 0.15.0
+
+Bumps [postgrest](https://github.com/supabase-community/postgrest-py) from 0.14.0 to 0.15.0.
+- [Release notes](https://github.com/supabase-community/postgrest-py/releases)
+- [Changelog](https://github.com/supabase-community/postgrest-py/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/supabase-community/postgrest-py/compare/v0.14.0...v0.15.0)
+
+---
+updated-dependencies:
+- dependency-name: postgrest
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`a5b7ca5`](https://github.com/Atticuszz/supabase-py-async/commit/a5b7ca54e967a6e580ed8e9d801d07e6ff5c54cd))
+
+* chore(deps): bump postgrest from 0.13.2 to 0.14.0
+
+Bumps [postgrest](https://github.com/supabase-community/postgrest-py) from 0.13.2 to 0.14.0.
+- [Release notes](https://github.com/supabase-community/postgrest-py/releases)
+- [Changelog](https://github.com/supabase-community/postgrest-py/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/supabase-community/postgrest-py/compare/v0.13.2...v0.14.0)
+
+---
+updated-dependencies:
+- dependency-name: postgrest
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`9cfc3a5`](https://github.com/Atticuszz/supabase-py-async/commit/9cfc3a50c2bd50194ac859773b49dbf13e389093))
+
+### Fix
+
+* fix: create_client fun doc ([`567341b`](https://github.com/Atticuszz/supabase-py-async/commit/567341b438891a1b8589c353722a0125aa56ed1e))
+
+### Unknown
+
+* Merge pull request #43 from Atticuszz/dependabot/pip/main/commitizen-3.14.0
+
+chore(deps): bump commitizen from 3.13.0 to 3.14.0 ([`3f4707f`](https://github.com/Atticuszz/supabase-py-async/commit/3f4707f975bca76fc961ac6197dfdc4cb3df97c2))
+
+* fix：update deps ([`d8f9e61`](https://github.com/Atticuszz/supabase-py-async/commit/d8f9e6151b52d7a8be261ad32c3a1721e2e2d46b))
+
+* chore：update deps ([`f1c85ee`](https://github.com/Atticuszz/supabase-py-async/commit/f1c85eede644fd022b2aa9172724f0e02a82e17d))
+
+* Merge pull request #42 from Atticuszz/dependabot/pip/main/aiohttp-3.9.3
+
+chore(deps): bump aiohttp from 3.9.2 to 3.9.3 ([`a3739ba`](https://github.com/Atticuszz/supabase-py-async/commit/a3739ba2db2addf8cf30e479c2fca9f2a7a7dd3e))
+
+* Merge pull request #41 from Atticuszz/dependabot/pip/main/faker-22.6.0
+
+chore(deps-dev): bump faker from 22.5.1 to 22.6.0 ([`57659ce`](https://github.com/Atticuszz/supabase-py-async/commit/57659ce43beecacc7f1e8bbc75aecdb469a48679))
+
+* Merge pull request #40 from Atticuszz/dependabot/pip/aiohttp-3.9.2
+
+chore(deps): bump aiohttp from 3.9.1 to 3.9.2 ([`46464d7`](https://github.com/Atticuszz/supabase-py-async/commit/46464d73a3c6c8176475b43b1da0bceb44fe00d1))
+
+* Merge pull request #38 from Atticuszz/dependabot/pip/main/aiohttp-3.9.2
+
+chore(deps): bump aiohttp from 3.9.1 to 3.9.2 ([`ca6de35`](https://github.com/Atticuszz/supabase-py-async/commit/ca6de35b2fd39d82559dfd100ac323dc2a159d0d))
+
+* Merge pull request #37 from Atticuszz/dependabot/pip/main/black-24.1.1
+
+chore(deps-dev): bump black from 24.1.0 to 24.1.1 ([`4f21ded`](https://github.com/Atticuszz/supabase-py-async/commit/4f21deda33034fe8a23a56725e5f64d607877ed2))
+
+* Merge pull request #36 from Atticuszz/dependabot/pip/main/pytest-asyncio-0.23.4
+
+chore(deps-dev): bump pytest-asyncio from 0.23.3 to 0.23.4 ([`c08ace3`](https://github.com/Atticuszz/supabase-py-async/commit/c08ace397d968716a50c2172b7b67cb97fc27b17))
+
+* Merge pull request #35 from Atticuszz/dependabot/pip/main/black-24.1.0
+
+chore(deps-dev): bump black from 23.12.1 to 24.1.0 ([`ba87e0f`](https://github.com/Atticuszz/supabase-py-async/commit/ba87e0f0830859e168d12a3669f8129642197511))
+
+* Merge pull request #34 from Atticuszz/dependabot/pip/main/faker-22.5.1
+
+chore(deps-dev): bump faker from 22.5.0 to 22.5.1 ([`1faf295`](https://github.com/Atticuszz/supabase-py-async/commit/1faf2956508afbbf8021da611e70c5f52ca976ba))
+
+* Merge remote-tracking branch &#39;origin/main&#39; ([`6932fd6`](https://github.com/Atticuszz/supabase-py-async/commit/6932fd69d2a727802e488bf6cb4bfd87620602d1))
+
+* Merge pull request #33 from Atticuszz/dependabot/pip/main/faker-22.5.0
+
+chore(deps-dev): bump faker from 22.2.0 to 22.5.0 ([`34ceead`](https://github.com/Atticuszz/supabase-py-async/commit/34ceeadf057b7c7780fb2fb3883195a07042b4b0))
+
+* Merge pull request #32 from Atticuszz/dependabot/pip/main/postgrest-0.15.0
+
+chore(deps): bump postgrest from 0.14.0 to 0.15.0 ([`f35800f`](https://github.com/Atticuszz/supabase-py-async/commit/f35800f6a05ca976e1776e913d5abd7258dd7e7a))
+
+* Merge pull request #31 from Atticuszz/dependabot/pip/main/postgrest-0.14.0
+
+chore(deps): bump postgrest from 0.13.2 to 0.14.0 ([`7b19c4d`](https://github.com/Atticuszz/supabase-py-async/commit/7b19c4dac485bdd14eaff078a8b006dec507dc66))
+
+
 ## v2.5.0 (2024-01-14)
+
+### Chore
+
+* chore(release): bump version to v2.5.0 ([`07d7d2e`](https://github.com/Atticuszz/supabase-py-async/commit/07d7d2e00e89ac0706667880150332a5401dacfb))
 
 ### Feature
 
