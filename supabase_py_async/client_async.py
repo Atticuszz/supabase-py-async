@@ -273,7 +273,10 @@ async def create_client(
     >>>
     >>> url: str = os.environ.get("SUPABASE_TEST_URL")
     >>> key: str = os.environ.get("SUPABASE_TEST_KEY")
-    >>> supabase: AsyncClient = await create_client(url, key)
+    >>> supabase: AsyncClient | None = None
+    >>> async def client():
+    >>>    global supabase
+    >>>    supabase = await create_client(url, key)
 
     Returns
     -------
