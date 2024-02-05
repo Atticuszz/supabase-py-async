@@ -35,7 +35,7 @@ class ClientOptions:
     realtime: dict[str, Any] | None = None
     """Options passed to the realtime-py instance"""
 
-    postgrest_client_timeout: (int | float | Timeout) = DEFAULT_POSTGREST_CLIENT_TIMEOUT
+    postgrest_client_timeout: int | float | Timeout = DEFAULT_POSTGREST_CLIENT_TIMEOUT
     """Timeout passed to the SyncPostgrestClient instance."""
 
     storage_client_timeout: int | float | Timeout = DEFAULT_STORAGE_CLIENT_TIMEOUT
@@ -55,9 +55,7 @@ class ClientOptions:
         postgrest_client_timeout: (
             int | float | Timeout
         ) = DEFAULT_POSTGREST_CLIENT_TIMEOUT,
-        storage_client_timeout: (
-            int | float | Timeout
-        ) = DEFAULT_STORAGE_CLIENT_TIMEOUT,
+        storage_client_timeout: int | float | Timeout = DEFAULT_STORAGE_CLIENT_TIMEOUT,
         flow_type: AuthFlowType | None = None,
     ) -> "ClientOptions":
         """Create a new SupabaseClientOptions with changes"""
