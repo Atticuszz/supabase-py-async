@@ -29,7 +29,7 @@ repos:
                     "--line-width=88",
                 ]
 
-    - repo: https://github.com/myint/autoflake.git
+    - repo: https://github.com/PyCQA/autoflake
       rev: v2.2.1
       hooks:
           - id: autoflake
@@ -42,7 +42,7 @@ repos:
                 ]
 
     - repo: https://github.com/psf/black
-      rev: "23.12.1"
+      rev: "24.1.1"
       hooks:
           - id: black
             # 自动格式化Python代码，符合PEP 8风格指南
@@ -55,7 +55,7 @@ repos:
             args: ["--py310-plus"]
 
     - repo: https://github.com/commitizen-tools/commitizen
-      rev: v2.20.3
+      rev: v3.14.1
       hooks:
           - id: commitizen
             # 确保commit信息遵循Conventional Commits标准
