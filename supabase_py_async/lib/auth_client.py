@@ -1,5 +1,3 @@
-from typing import Union, Optional, Dict
-
 from gotrue import (
     AsyncGoTrueClient,
     AsyncMemoryStorage,
@@ -16,12 +14,12 @@ class AsyncSupabaseAuthClient(AsyncGoTrueClient):
         self,
         *,
         url: str,
-        headers: Optional[Dict[str, str]] = None,
-        storage_key: Optional[str] = None,
+        headers: dict[str, str] | None = None,
+        storage_key: str | None = None,
         auto_refresh_token: bool = True,
         persist_session: bool = True,
         storage: AsyncSupportedStorage = AsyncMemoryStorage(),
-        http_client: Optional[AsyncClient] = None,
+        http_client: AsyncClient | None = None,
         flow_type: AuthFlowType = "implicit"
     ):
         """Instantiate SupabaseAuthClient instance."""
