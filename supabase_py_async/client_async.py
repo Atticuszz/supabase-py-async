@@ -1,5 +1,5 @@
 import re
-from typing import Any
+from typing import Any, Optional, Union
 
 from gotrue.types import AuthChangeEvent, Session
 from httpx import Timeout
@@ -31,7 +31,7 @@ class AsyncClient:
         self,
         supabase_url: str,
         supabase_key: str,
-        access_token: str | None = None,
+        access_token: Optional[str] = None,
         options: ClientOptions = ClientOptions(),
     ):
         """Instantiate the client.
@@ -100,7 +100,7 @@ class AsyncClient:
         cls,
         supabase_url: str,
         supabase_key: str,
-        access_token: str | None = None,
+        access_token: Optional[str] = None,
         options: ClientOptions = ClientOptions(),
     ):
         client = cls(supabase_url, supabase_key, access_token, options)
@@ -201,7 +201,7 @@ class AsyncClient:
         rest_url: str,
         headers: dict[str, str],
         schema: str,
-        timeout: int | float | Timeout = DEFAULT_POSTGREST_CLIENT_TIMEOUT,
+        timeout: Union[int, float, Timeout] = DEFAULT_POSTGREST_CLIENT_TIMEOUT,
     ) -> AsyncPostgrestClient:
         """Private helper for creating an instance of the Postgrest client."""
         return AsyncPostgrestClient(
@@ -233,7 +233,9 @@ class AsyncClient:
         }
         self.options.headers.update(**new_headers)
 
-    def _listen_to_auth_events(self, event: AuthChangeEvent, session: Session | None):
+    def _listen_to_auth_events(
+        self, event: AuthChangeEvent, session: Optional[Session]
+    ):
         """listen to auth events and update auth token"""
         access_token = self._access_token
         if event in ["SIGNED_IN", "TOKEN_REFRESHED", "SIGNED_OUT"]:
@@ -248,7 +250,7 @@ class AsyncClient:
 async def create_client(
     supabase_url: str,
     supabase_key: str,
-    access_token: str | None = None,
+    access_token: Optional[str] = None,
     options: ClientOptions = ClientOptions(),
 ) -> AsyncClient:
     """Create client function to instantiate supabase client like JS runtime.
