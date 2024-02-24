@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Any
+from typing import Any, Optional, Union
 
 # from httpx import Timeout
 from aiohttp import ClientTimeout as Timeout
@@ -32,13 +32,13 @@ class ClientOptions:
     storage: AsyncSupportedStorage = field(default_factory=AsyncMemoryStorage)
     """A storage provider. Used to store the logged in session."""
 
-    realtime: dict[str, Any] | None = None
+    realtime: Optional[dict[str, Any]]= None
     """Options passed to the realtime-py instance"""
 
-    postgrest_client_timeout: int | float | Timeout = DEFAULT_POSTGREST_CLIENT_TIMEOUT
+    postgrest_client_timeout: Union[int, float, Timeout] = DEFAULT_POSTGREST_CLIENT_TIMEOUT
     """Timeout passed to the SyncPostgrestClient instance."""
 
-    storage_client_timeout: int | float | Timeout = DEFAULT_STORAGE_CLIENT_TIMEOUT
+    storage_client_timeout: Union[int, float, Timeout] = DEFAULT_STORAGE_CLIENT_TIMEOUT
     """Timeout passed to the SyncStorageClient instance"""
 
     flow_type: AuthFlowType = "implicit"
@@ -46,17 +46,19 @@ class ClientOptions:
 
     def replace(
         self,
-        schema: str | None = None,
-        headers: dict[str, str] | None = None,
-        auto_refresh_token: bool | None = None,
-        persist_session: bool | None = None,
-        storage: AsyncSupportedStorage | None = None,
-        realtime: dict[str, Any] | None = None,
+        schema: Optional[str] = None,
+        headers: Optional[dict[str, str]] = None,
+        auto_refresh_token: Optional[bool] = None,
+        persist_session: Optional[bool] = None,
+        storage: Optional[AsyncSupportedStorage] = None,
+        realtime: Optional[dict[str, Any]] = None,
         postgrest_client_timeout: (
-            int | float | Timeout
+            Union[int, float, Timeout]
         ) = DEFAULT_POSTGREST_CLIENT_TIMEOUT,
-        storage_client_timeout: int | float | Timeout = DEFAULT_STORAGE_CLIENT_TIMEOUT,
-        flow_type: AuthFlowType | None = None,
+        storage_client_timeout: (
+            Union[int, float, Timeout]
+        ) = DEFAULT_STORAGE_CLIENT_TIMEOUT,
+        flow_type: Optional[AuthFlowType] = None,
     ) -> "ClientOptions":
         """Create a new SupabaseClientOptions with changes"""
         client_options = ClientOptions()
