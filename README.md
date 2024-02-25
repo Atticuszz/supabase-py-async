@@ -27,7 +27,7 @@ We recommend activating your virtual environment. For example, we like `poetry` 
 
 ### PyPi installation
 
-Install the package (for > Python 3.10):
+Install the package (for > Python 3.9):
 
 ```bash
 # with pip
