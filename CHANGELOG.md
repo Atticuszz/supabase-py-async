@@ -2,9 +2,22 @@
 
 
 
+## v2.5.4 (2024-02-25)
+
+### Fix
+
+* fix: Export Core Supabase Classes and Functions Explicitly via __all__ ([`4b4cb7d`](https://github.com/Atticuszz/supabase-py-async/commit/4b4cb7d1901ce414ec15ce0da026d57412cd7dc6))
+
+### Unknown
+
+* Merge remote-tracking branch &#39;origin/main&#39; ([`508fd83`](https://github.com/Atticuszz/supabase-py-async/commit/508fd8309d7a21c160700d6b28b1d78a5ae16f9e))
+
+
 ## v2.5.3 (2024-02-25)
 
 ### Chore
+
+* chore(release): bump version to v2.5.3 ([`097f2c7`](https://github.com/Atticuszz/supabase-py-async/commit/097f2c734128ce443b4d57869015d3c5972fb2a6))
 
 * chore: Update README.md ([`b04b74d`](https://github.com/Atticuszz/supabase-py-async/commit/b04b74d0e8dcbaa789bb3e8279e938fd96552e4b))
 

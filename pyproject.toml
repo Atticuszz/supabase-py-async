@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "supabase-py-async"
-version = "2.5.3"
+version = "2.5.4"
 description = "supabase-py with async synax"
 authors = ["Atticuszz <1831768457@qq.com>"]
 homepage ="https://github.com/Atticuszz/supabase-py_async"
