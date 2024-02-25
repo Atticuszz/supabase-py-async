@@ -2,9 +2,28 @@
 
 
 
+## v2.5.3 (2024-02-25)
+
+### Chore
+
+* chore: Update README.md ([`b04b74d`](https://github.com/Atticuszz/supabase-py-async/commit/b04b74d0e8dcbaa789bb3e8279e938fd96552e4b))
+
+### Fix
+
+* fix: add missing ClientOptions to the main init file ([`c60f368`](https://github.com/Atticuszz/supabase-py-async/commit/c60f36840886db11df68abb673fc331d744e28e8))
+
+### Unknown
+
+* Chore:Update ci.yml for py3.9 tests ([`e5262bb`](https://github.com/Atticuszz/supabase-py-async/commit/e5262bbe48f94c568306a16513ec39b7e84da921))
+
+* Chore: Update ci.yml for test py3.9 ([`37c1060`](https://github.com/Atticuszz/supabase-py-async/commit/37c1060c1c3a07665f60f63b20787e1d03d1a901))
+
+
 ## v2.5.2 (2024-02-24)
 
 ### Chore
+
+* chore(release): bump version to v2.5.2 ([`b257e5c`](https://github.com/Atticuszz/supabase-py-async/commit/b257e5c37185b20b680b04b0fbc30f6bb09e48e2))
 
 * chore(deps-dev): bump pytest from 8.0.0 to 8.0.1
 
