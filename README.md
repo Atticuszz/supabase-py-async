@@ -232,7 +232,7 @@ async def move_files():
 ## Roadmap
 
 - [x] Wrap [Postgrest-py](https://github.com/supabase-community/postgrest-py/)
-  - [ ] Add remaining filters
+  - [x] Add remaining filters
   - [ ] Add support for EXPLAIN
   - [ ] Add proper error handling
 - [ ] Wrap [Realtime-py](https://github.com/supabase-community/realtime-py)

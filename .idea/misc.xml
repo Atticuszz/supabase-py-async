@@ -4,7 +4,7 @@
     <option name="enabledOnReformat" value="true" />
     <option name="enabledOnSave" value="true" />
     <option name="executionMode" value="BINARY" />
-    <option name="pathToExecutable" value="C:\Users\18317\AppData\Local\Programs\Python\Python311\Scripts\black.exe" />
+    <option name="pathToExecutable" value="/usr/local/bin/black" />
     <option name="sdkName" value="Poetry (supabase-py-async)" />
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="Poetry (supabase-py-async)" project-jdk-type="Python SDK" />
