@@ -2,7 +2,106 @@
 
 
 
+## v2.5.5 (2024-03-04)
+
+### Chore
+
+* chore(deps): bump supafunc from 0.3.3 to 0.4.0
+
+Bumps [supafunc](https://github.com/supabase-community/functions-py) from 0.3.3 to 0.4.0.
+- [Release notes](https://github.com/supabase-community/functions-py/releases)
+- [Changelog](https://github.com/supabase-community/functions-py/blob/main/CHANGELOG.md)
+- [Commits](https://github.com/supabase-community/functions-py/compare/v0.3.3...v0.4.0)
+
+---
+updated-dependencies:
+- dependency-name: supafunc
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`81bdf61`](https://github.com/Atticuszz/supabase-py-async/commit/81bdf614908171834de4235bd1ce3a06438c1253))
+
+* chore(deps): bump postgrest from 0.15.0 to 0.16.1
+
+Bumps [postgrest](https://github.com/supabase-community/postgrest-py) from 0.15.0 to 0.16.1.
+- [Release notes](https://github.com/supabase-community/postgrest-py/releases)
+- [Changelog](https://github.com/supabase-community/postgrest-py/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/supabase-community/postgrest-py/compare/v0.15.0...v0.16.1)
+
+---
+updated-dependencies:
+- dependency-name: postgrest
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`3a17107`](https://github.com/Atticuszz/supabase-py-async/commit/3a1710794d35c2783a6edd9c11cac0217b476529))
+
+* chore(deps): bump gotrue from 2.1.0 to 2.4.1
+
+Bumps [gotrue](https://github.com/supabase-community/gotrue-py) from 2.1.0 to 2.4.1.
+- [Release notes](https://github.com/supabase-community/gotrue-py/releases)
+- [Changelog](https://github.com/supabase-community/auth-py/blob/main/CHANGELOG.md)
+- [Commits](https://github.com/supabase-community/gotrue-py/compare/v2.1.0...v2.4.1)
+
+---
+updated-dependencies:
+- dependency-name: gotrue
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`41297ba`](https://github.com/Atticuszz/supabase-py-async/commit/41297bae91269393fa027c28043eb13a4217aed6))
+
+* chore(deps-dev): bump python-semantic-release from 9.1.0 to 9.1.1
+
+Bumps [python-semantic-release](https://github.com/python-semantic-release/python-semantic-release) from 9.1.0 to 9.1.1.
+- [Release notes](https://github.com/python-semantic-release/python-semantic-release/releases)
+- [Changelog](https://github.com/python-semantic-release/python-semantic-release/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/python-semantic-release/python-semantic-release/compare/v9.1.0...v9.1.1)
+
+---
+updated-dependencies:
+- dependency-name: python-semantic-release
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`e82652c`](https://github.com/Atticuszz/supabase-py-async/commit/e82652ce15643f1b14ed28bad038c3d349b5db4e))
+
+### Fix
+
+* fix: update realtime to 1.0.2 ([`24a374b`](https://github.com/Atticuszz/supabase-py-async/commit/24a374b3b2777eba74f73f4dccd8edc473467003))
+
+### Unknown
+
+* Merge pull request #68 from Atticuszz/dependabot/pip/main/supafunc-0.4.0
+
+chore(deps): bump supafunc from 0.3.3 to 0.4.0 ([`6120931`](https://github.com/Atticuszz/supabase-py-async/commit/612093192650a72136acb3a4ad6aaf4a76bc5132))
+
+* Merge pull request #63 from Atticuszz/dependabot/pip/main/python-semantic-release-9.1.1
+
+chore(deps-dev): bump python-semantic-release from 9.1.0 to 9.1.1 ([`a9647df`](https://github.com/Atticuszz/supabase-py-async/commit/a9647dfa51d579f4fa296c9465a46fbe588c20ce))
+
+* Merge pull request #67 from Atticuszz/dependabot/pip/main/postgrest-0.16.1
+
+chore(deps): bump postgrest from 0.15.0 to 0.16.1 ([`c12cbec`](https://github.com/Atticuszz/supabase-py-async/commit/c12cbec980633dc9c153023a19ccff17b4ba4db2))
+
+* Merge pull request #66 from Atticuszz/dependabot/pip/main/gotrue-2.4.1
+
+chore(deps): bump gotrue from 2.1.0 to 2.4.1 ([`2a91815`](https://github.com/Atticuszz/supabase-py-async/commit/2a91815413acbd1d0d30ad49ba114d98df4d65a9))
+
+* Merge pull request #54 from Atticuszz/dependabot/pip/main/faker-23.2.1
+
+chore(deps-dev): bump faker from 23.2.0 to 23.2.1 ([`0c07f65`](https://github.com/Atticuszz/supabase-py-async/commit/0c07f659fc869844028f8b8badde10926b25a792))
+
+
 ## v2.5.4 (2024-02-25)
+
+### Chore
+
+* chore(release): bump version to v2.5.4 ([`ce26016`](https://github.com/Atticuszz/supabase-py-async/commit/ce26016046bcf94ec8dfb836a1a87a706a3b31c7))
 
 ### Fix
 
@@ -114,6 +213,22 @@ updated-dependencies:
 ...
 
 Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`b7048f3`](https://github.com/Atticuszz/supabase-py-async/commit/b7048f3d1a86818147783971cb4f53700bcd7a5d))
+
+* chore(deps-dev): bump faker from 23.2.0 to 23.2.1
+
+Bumps [faker](https://github.com/joke2k/faker) from 23.2.0 to 23.2.1.
+- [Release notes](https://github.com/joke2k/faker/releases)
+- [Changelog](https://github.com/joke2k/faker/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/joke2k/faker/compare/v23.2.0...v23.2.1)
+
+---
+updated-dependencies:
+- dependency-name: faker
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`02c0074`](https://github.com/Atticuszz/supabase-py-async/commit/02c0074dc5f4fca7d94369809444127be8b7a6b8))
 
 * chore(deps-dev): bump python-semantic-release from 9.0.3 to 9.1.0
 
