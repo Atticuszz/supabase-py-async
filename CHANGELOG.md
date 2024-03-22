@@ -2,9 +2,178 @@
 
 
 
+## v2.5.6 (2024-03-22)
+
+### Chore
+
+* chore(deps-dev): bump python-semantic-release from 9.1.1 to 9.3.0
+
+Bumps [python-semantic-release](https://github.com/python-semantic-release/python-semantic-release) from 9.1.1 to 9.3.0.
+- [Release notes](https://github.com/python-semantic-release/python-semantic-release/releases)
+- [Changelog](https://github.com/python-semantic-release/python-semantic-release/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/python-semantic-release/python-semantic-release/compare/v9.1.1...v9.3.0)
+
+---
+updated-dependencies:
+- dependency-name: python-semantic-release
+  dependency-type: direct:development
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`9a65d39`](https://github.com/Atticuszz/supabase-py-async/commit/9a65d3944e5426110050e0a7346795b2bd80b29c))
+
+* chore(deps-dev): bump black from 24.2.0 to 24.3.0
+
+Bumps [black](https://github.com/psf/black) from 24.2.0 to 24.3.0.
+- [Release notes](https://github.com/psf/black/releases)
+- [Changelog](https://github.com/psf/black/blob/main/CHANGES.md)
+- [Commits](https://github.com/psf/black/compare/24.2.0...24.3.0)
+
+---
+updated-dependencies:
+- dependency-name: black
+  dependency-type: direct:development
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`28cdfef`](https://github.com/Atticuszz/supabase-py-async/commit/28cdfef42c79da5ebd77043744d5fcd96aa98545))
+
+* chore(deps-dev): bump black from 24.2.0 to 24.3.0
+
+Bumps [black](https://github.com/psf/black) from 24.2.0 to 24.3.0.
+- [Release notes](https://github.com/psf/black/releases)
+- [Changelog](https://github.com/psf/black/blob/main/CHANGES.md)
+- [Commits](https://github.com/psf/black/compare/24.2.0...24.3.0)
+
+---
+updated-dependencies:
+- dependency-name: black
+  dependency-type: direct:development
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`adb5a6b`](https://github.com/Atticuszz/supabase-py-async/commit/adb5a6b54f400cabe2a287ac37d575413380150f))
+
+* chore(deps-dev): bump autoflake from 2.3.0 to 2.3.1
+
+Bumps [autoflake](https://github.com/PyCQA/autoflake) from 2.3.0 to 2.3.1.
+- [Release notes](https://github.com/PyCQA/autoflake/releases)
+- [Commits](https://github.com/PyCQA/autoflake/compare/v2.3.0...v2.3.1)
+
+---
+updated-dependencies:
+- dependency-name: autoflake
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`d74a35e`](https://github.com/Atticuszz/supabase-py-async/commit/d74a35e524818c96da47dbbd6a897d1405f638e4))
+
+* chore(deps): bump commitizen from 3.16.0 to 3.20.0
+
+Bumps [commitizen](https://github.com/commitizen-tools/commitizen) from 3.16.0 to 3.20.0.
+- [Release notes](https://github.com/commitizen-tools/commitizen/releases)
+- [Changelog](https://github.com/commitizen-tools/commitizen/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/commitizen-tools/commitizen/compare/v3.16.0...v3.20.0)
+
+---
+updated-dependencies:
+- dependency-name: commitizen
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`dd4fed2`](https://github.com/Atticuszz/supabase-py-async/commit/dd4fed2ca8db37d1c7b43c71f8ce41fb35ad5f41))
+
+* chore(deps-dev): bump faker from 23.3.0 to 24.3.0
+
+Bumps [faker](https://github.com/joke2k/faker) from 23.3.0 to 24.3.0.
+- [Release notes](https://github.com/joke2k/faker/releases)
+- [Changelog](https://github.com/joke2k/faker/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/joke2k/faker/compare/v23.3.0...v24.3.0)
+
+---
+updated-dependencies:
+- dependency-name: faker
+  dependency-type: direct:development
+  update-type: version-update:semver-major
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`be19960`](https://github.com/Atticuszz/supabase-py-async/commit/be19960de842a91fb46334cacfc40c306ecae5de))
+
+* chore(deps-dev): bump pytest-asyncio from 0.23.5 to 0.23.6
+
+Bumps [pytest-asyncio](https://github.com/pytest-dev/pytest-asyncio) from 0.23.5 to 0.23.6.
+- [Release notes](https://github.com/pytest-dev/pytest-asyncio/releases)
+- [Commits](https://github.com/pytest-dev/pytest-asyncio/compare/v0.23.5...v0.23.6)
+
+---
+updated-dependencies:
+- dependency-name: pytest-asyncio
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`3519165`](https://github.com/Atticuszz/supabase-py-async/commit/35191657f4b8ecb95776e43ef5b2a9695b7734ed))
+
+* chore(deps): bump storage3 from 0.7.0 to 0.7.3
+
+Bumps [storage3](https://github.com/supabase-community/storage-py) from 0.7.0 to 0.7.3.
+- [Release notes](https://github.com/supabase-community/storage-py/releases)
+- [Changelog](https://github.com/supabase-community/storage-py/blob/main/CHANGELOG.md)
+- [Commits](https://github.com/supabase-community/storage-py/compare/v0.7.0...v0.7.3)
+
+---
+updated-dependencies:
+- dependency-name: storage3
+  dependency-type: direct:production
+  update-type: version-update:semver-patch
+...
+
+Signed-off-by: dependabot[bot] &lt;support@github.com&gt; ([`59653a5`](https://github.com/Atticuszz/supabase-py-async/commit/59653a58d886e0081b9e19ce1a4aa25f1c080c30))
+
+### Fix
+
+* fix: update deps
+Merge pull request #89 from Atticuszz/dependabot/pip/main/python-semantic-release-9.3.0
+
+chore(deps-dev): bump python-semantic-release from 9.1.1 to 9.3.0 ([`e16f6e6`](https://github.com/Atticuszz/supabase-py-async/commit/e16f6e64d686600da290873474afb55160c2e719))
+
+### Unknown
+
+* Merge pull request #74 from Atticuszz/dependabot/pip/main/storage3-0.7.3
+
+chore(deps): bump storage3 from 0.7.0 to 0.7.3 ([`24ad193`](https://github.com/Atticuszz/supabase-py-async/commit/24ad1936a8e6c260e0ba6759a43c37519979ff1b))
+
+* Merge pull request #85 from Atticuszz/dependabot/pip/main/autoflake-2.3.1
+
+chore(deps-dev): bump autoflake from 2.3.0 to 2.3.1 ([`3c2bab4`](https://github.com/Atticuszz/supabase-py-async/commit/3c2bab47bb876104b7aa8790dce43ac245d323bf))
+
+* Merge pull request #87 from Atticuszz/dependabot/pip/main/black-24.3.0
+
+chore(deps-dev): bump black from 24.2.0 to 24.3.0 ([`39b44d5`](https://github.com/Atticuszz/supabase-py-async/commit/39b44d552ef5cf3db4b802d6667a531aec0a58ba))
+
+* Merge pull request #88 from Atticuszz/dependabot/pip/black-24.3.0
+
+chore(deps-dev): bump black from 24.2.0 to 24.3.0 ([`f073afa`](https://github.com/Atticuszz/supabase-py-async/commit/f073afa2f76c24874ced88ecde5e9e31ff19a8c1))
+
+* Merge pull request #82 from Atticuszz/dependabot/pip/main/pytest-asyncio-0.23.6
+
+chore(deps-dev): bump pytest-asyncio from 0.23.5 to 0.23.6 ([`fe5b536`](https://github.com/Atticuszz/supabase-py-async/commit/fe5b53620051c8e88699e1c8325455ccb183c476))
+
+* Merge pull request #83 from Atticuszz/dependabot/pip/main/faker-24.3.0
+
+chore(deps-dev): bump faker from 23.3.0 to 24.3.0 ([`edb785d`](https://github.com/Atticuszz/supabase-py-async/commit/edb785d0053cfb38077426bc9c15ab0b40b99a10))
+
+* Merge pull request #84 from Atticuszz/dependabot/pip/main/commitizen-3.20.0
+
+chore(deps): bump commitizen from 3.16.0 to 3.20.0 ([`85407a2`](https://github.com/Atticuszz/supabase-py-async/commit/85407a21541095e9c6cda46dd7cc698ab08fd2bc))
+
+
 ## v2.5.5 (2024-03-04)
 
 ### Chore
+
+* chore(release): bump version to v2.5.5 ([`75ba9fa`](https://github.com/Atticuszz/supabase-py-async/commit/75ba9fad97da205150472c4c55d4cae53287c9a8))
 
 * chore(deps): bump supafunc from 0.3.3 to 0.4.0
 
